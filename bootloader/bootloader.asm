@@ -17,9 +17,35 @@ push msg
 call print
 add sp, 2
 
-cli
-hlt
 
+;========================
+; Loads stage2 from disk to 0x1000
+;========================
+mov ax, 0x1000		; Target segment
+mov es, ax
+xor bx, bx		; Offset into ES:BX = 0x1000:0000 = 0x10000 linear address		
+
+mov ah, 0x02		; BIOS read sector function
+mov al, 4		; Number of sectors to read
+mov ch, 0		; Cylinder
+mov cl, 2		; Sector (sector 1 = bootloader)
+mov dh, 0		; Head
+mov dl, 0x00		; Drive number (first floppy disk in VMware)
+
+int 0x13		; BIOS interrupt
+jc disk_error		; Jump if error
+
+jmp 0x1000:0x0000	; Real mode far jump to stage2
+
+disk_error:
+	push error
+	cli
+	hlt
+			
+
+;========================
+; Other stuff
+;========================
 clearscreen:
 	push bp
 	mov bp, sp
@@ -76,7 +102,8 @@ print:
 	pop bp
 	ret
 
-msg:	db "Eris Booting...", 0
+msg:	db "Booting.", 0
+error:	db "E", 0
 
 times 510-($-$$) db 0
 dw 0xAA55
