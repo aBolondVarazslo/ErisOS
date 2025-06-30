@@ -1,21 +1,13 @@
-QEMU = qemu-system-i386
-BL = bootloader/bootloader.asm
-BBL = build/bootloader
-S2 = bootloader/stage2.asm
-IMG = build/erisos.img
-GCC = i386-elf-gcc
-LD = i386-elf-ld
-
 all:
+	rm -rf build/
 	mkdir -p build/bootloader
-	mkdir build/kernel
-	nasm -f bin ${BL} -o ${BBL}/bootloader.bin
-	nasm -f bin ${S2} -o ${BBL}/stage2.bin
-	cat ${BBL}/bootloader.bin ${BBL}/stage2.bin > ${IMG}
-	${GCC} -ffreestanding -m32 -c kernel/kernel.c -o build/kernel/kernel.o
+	nasm -f bin bootloader/bootloader.asm -o build/bootloader/bootloader.bin
+	nasm -f bin bootloader/stage2.asm -o build/bootloader/stage2.bin
+	cat build/bootloader/bootloader.bin build/bootloader/stage2.bin > build/test.img
 
-run: all
-	${QEMU} -drive format=raw,file=${IMG},index=0,if=floppy
+run:
+	qemu-system-x86_64 -fda build/test.img --nographic
+	rm -rf build/
 
 clean:
-	rm -rf build
+	rm -rf build/
