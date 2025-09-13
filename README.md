@@ -1,6 +1,6 @@
 # ErisOS
 
-**ErisOS** is a small, bare-metal operating system for the x86 architecture, written in C and NASM. It is built as a learning project to explore low-level systems programming, bootloaders, and kernel development.
+**ErisOS** is a small, bare-metal operating system for the x86 architecture, written in C. It is built as a learning project to explore low-level systems programming, bootloaders, and kernel development.
 
 This kernel currently uses GRUB as its bootloader and prints basic status messages to the VGA text buffer in color. Over time, ErisOS will gain more features such as a scrolling terminal, input handling, and memory management.
 
