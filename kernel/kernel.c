@@ -62,14 +62,14 @@ uint8_t failure_color;
 uint8_t debug_color;
 uint16_t* terminal_buffer = (uint16_t*)VGA_MEMORY;
 
-void terminal_initialize(void) 
+void terminal_initialise(void) 
 {
 	terminal_row = 0;
 	terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
 	success_color = vga_entry_color(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK);	
 	failure_color = vga_entry_color(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK);
-	debug_color = vga_entry_color(VGA_COLOR_BLACK, VGA_COLOR_LIGHT_GREY);
+	debug_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLUE);
 
 	for (size_t y = 0; y < VGA_HEIGHT; y++) {
 		for (size_t x = 0; x < VGA_WIDTH; x++) {
@@ -79,21 +79,13 @@ void terminal_initialize(void)
 	}
 }
 
-void terminal_setcolor(uint8_t color) 
-{
-	terminal_color = color;
-	success_color = color;
-	failure_color = color;
-	debug_color = color;
-}
-
-void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) 
+void terminal_putCharAt(char c, uint8_t color, size_t x, size_t y) 
 {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = vga_entry(c, color);
 }
 
-void terminal_putchar(char c, uint8_t status)
+void terminal_typeChar(char c, uint8_t status)
 {
 
 	if (c == '\n')
@@ -106,16 +98,16 @@ void terminal_putchar(char c, uint8_t status)
 	{
 		
 		if (status == 0)
-			terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
+			terminal_putCharAt(c, terminal_color, terminal_column, terminal_row);
 
 		else if (status == 1)
-			terminal_putentryat(c, success_color, terminal_column, terminal_row);
+			terminal_putCharAt(c, success_color, terminal_column, terminal_row);
 
 		else if (status == 2)
-			terminal_putentryat(c, failure_color, terminal_column, terminal_row);
+			terminal_putCharAt(c, failure_color, terminal_column, terminal_row);
 
 		else if (status == 3)
-			terminal_putentryat(c, debug_color, terminal_column, terminal_row);
+			terminal_putCharAt(c, debug_color, terminal_column, terminal_row);
 
 		if (++terminal_column == VGA_WIDTH) {
 			terminal_column = 0;
@@ -128,28 +120,27 @@ void terminal_putchar(char c, uint8_t status)
 void terminal_write(const char* data, size_t size, uint8_t status)
 {
 	for (size_t i = 0; i < size; i++)
-		terminal_putchar(data[i], status);
+		terminal_typeChar(data[i], status);
 }
 
-void terminal_writestring(const char* data, uint8_t status)
+void terminal_writeString(const char* data, uint8_t status)
 {
 	terminal_write(data, strlen(data), status);
 }
 
 void kernel_main(void) 
 {
-	/* Initialize terminal interface */
-	terminal_initialize();
+	/* Initialise terminal interface */
+	terminal_initialise();
 
-	terminal_writestring("Kernel boot successful.\n", 1);
-	terminal_writestring("Attempting to load filesystem...\n", 0);
-	terminal_writestring("Filesystem not found!\n", 2);
-
-	
+	terminal_writeString("Kernel boot successful.\n", 1);
+	terminal_writeString("Attempting to load filesystem...\n", 0);
+	terminal_writeString("Filesystem not found!\n", 2);
+	terminal_writeString("Testing...\n", 3);
 
 	while (1 == 1)
 	{
-		terminal_writestring("Testing...\n", 3);
+		
 	}
 
 }
