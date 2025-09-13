@@ -88,32 +88,63 @@ void terminal_putCharAt(char c, uint8_t color, size_t x, size_t y)
 void terminal_typeChar(char c, uint8_t status)
 {
 
-	if (c == '\n')
-	{
-		terminal_column = 0;
-		terminal_row++;
-	}
+        if (c == '\n')
+        {
+                terminal_column = 0;
+                terminal_row++;
+        }
 
-	else
+        else if (c == '\r')
+        {
+                terminal_column = 0;
+		
+        }
+
+        else if (c == '\b')
+        {
+                terminal_column--;
+        }
+
+        else if (c == '\t')
+        {
+                terminal_column += 4;
+        }
+
+        else
+        {
+
+		uint8_t colour = get_colour(status);
+
+                if (status == 0)
+                        terminal_putCharAt(c, terminal_color, terminal_column, terminal_row);
+
+                else if (status == 1)
+                        terminal_putCharAt(c, success_color, terminal_column, terminal_row);
+
+                else if (status == 2)
+                        terminal_putCharAt(c, failure_color, terminal_column, terminal_row);
+
+                else if (status == 3)
+                        terminal_putCharAt(c, debug_color, terminal_column, terminal_row);
+
+                if (++terminal_column == VGA_WIDTH) {
+                        terminal_column = 0;
+                        if (++terminal_row == VGA_HEIGHT)
+                                terminal_row = 0;
+                }
+        }
+}
+
+void handle_escape(char c)
+{
+
+}
+
+uint8_t get_colour(uint8_t status)
+{
+	if (status == 0)
 	{
 		
-		if (status == 0)
-			terminal_putCharAt(c, terminal_color, terminal_column, terminal_row);
-
-		else if (status == 1)
-			terminal_putCharAt(c, success_color, terminal_column, terminal_row);
-
-		else if (status == 2)
-			terminal_putCharAt(c, failure_color, terminal_column, terminal_row);
-
-		else if (status == 3)
-			terminal_putCharAt(c, debug_color, terminal_column, terminal_row);
-
-		if (++terminal_column == VGA_WIDTH) {
-			terminal_column = 0;
-			if (++terminal_row == VGA_HEIGHT)
-				terminal_row = 0;
-		}
 	}
 }
 
@@ -137,6 +168,9 @@ void kernel_main(void)
 	terminal_writeString("Attempting to load filesystem...\n", 0);
 	terminal_writeString("Filesystem not found!\n", 2);
 	terminal_writeString("Testing...\n", 3);
+	terminal_writeString("Tabs\tend here.\n", 3);
+	terminal_writeString("Backk\bspace.\n", 3);
+	terminal_writeString("Not a\rReturn function.\n", 3);
 
 	while (1 == 1)
 	{
