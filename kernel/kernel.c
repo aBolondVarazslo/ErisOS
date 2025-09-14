@@ -12,6 +12,22 @@
 #error "Incorrect compiler. Exiting."
 #endif
 
+#define VGA_WIDTH   80
+#define VGA_HEIGHT  25
+#define VGA_MEMORY  0xB8000
+
+#define STATUS_NORMAL  0
+#define STATUS_SUCCESS 1
+#define STATUS_FAILURE 2
+#define STATUS_DEBUG   3
+
+
+#define TAB_WIDTH 4
+#define TERMINAL_COLOUR vga_entry_colour(VGA_COLOUR_LIGHT_GREY, VGA_COLOUR_BLACK)
+#define SUCCESS_COLOUR  vga_entry_colour(VGA_COLOUR_LIGHT_GREEN, VGA_COLOUR_BLACK)
+#define FAILURE_COLOUR  vga_entry_colour(VGA_COLOUR_LIGHT_RED, VGA_COLOUR_BLACK)
+#define DEBUG_COLOUR    vga_entry_colour(VGA_COLOUR_LIGHT_GREY, VGA_COLOUR_BLUE)
+
 /* Hardware text mode colour constants. */
 enum vga_colour {
         VGA_COLOUR_BLACK = 0,
@@ -50,9 +66,7 @@ size_t strlen(const char* str)
         return len;
 }
 
-#define VGA_WIDTH   80
-#define VGA_HEIGHT  25
-#define VGA_MEMORY  0xB8000
+
 
 size_t terminal_row;
 size_t terminal_column;
@@ -81,26 +95,14 @@ void terminal_initialise(void)
 
 uint8_t get_colour(uint8_t status)
 {
-        if (status == 0)
-        {
-                status = terminal_colour;
-        }
-
-        else if (status == 1)
-        {
-                status = success_colour;
-        }
-
-        else if (status == 2)
-        {
-                status = failure_colour;
-        }
-
-        else if (status == 3)
-        {
-                status = debug_colour;
-        }
-        return status;
+	switch (status)
+	{
+		case STATUS_SUCCESS:   return SUCCESS_COLOUR;
+		case STATUS_FAILURE: return FAILURE_COLOUR;
+		case STATUS_DEBUG:   return DEBUG_COLOUR;
+		case STATUS_NORMAL:
+		default:	     return TERMINAL_COLOUR;
+	}
 }
 
 void terminal_putCharAt(char c, uint8_t colour, size_t x, size_t y)
@@ -165,8 +167,8 @@ void kernel_main(void)
         /* Initialise terminal interface */
         terminal_initialise();
 
-        terminal_writeString("Kernel boot successful.\n", 1);
-        terminal_writeString("Attempting to load filesystem...\n", 0);
+        terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
+        terminal_writeString("Attempting to load filesystem...\n", STATUS_NORMAL);
         terminal_writeString("Filesystem not found!\n", 2);
         terminal_writeString("Testing...\n", 3);
         terminal_writeString("Tabs\tend here.\n", 3);
