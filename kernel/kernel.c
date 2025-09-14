@@ -70,27 +70,19 @@ size_t strlen(const char* str)
 
 size_t terminal_row;
 size_t terminal_column;
-uint8_t terminal_colour;
-uint8_t success_colour;
-uint8_t failure_colour;
-uint8_t debug_colour;
 uint16_t* terminal_buffer = (uint16_t*)VGA_MEMORY;
 
 void terminal_initialise(void)
 {
         terminal_row = 0;
         terminal_column = 0;
-        terminal_colour = vga_entry_colour(VGA_COLOUR_LIGHT_GREY, VGA_COLOUR_BLACK);
-        success_colour = vga_entry_colour(VGA_COLOUR_LIGHT_GREEN, VGA_COLOUR_BLACK);
-        failure_colour = vga_entry_colour(VGA_COLOUR_LIGHT_RED, VGA_COLOUR_BLACK);
-        debug_colour = vga_entry_colour(VGA_COLOUR_LIGHT_GREY, VGA_COLOUR_BLUE);
 
         for (size_t y = 0; y < VGA_HEIGHT; y++)
 	{
                 for (size_t x = 0; x < VGA_WIDTH; x++)
 		{
                         const size_t index = y * VGA_WIDTH + x;
-                        terminal_buffer[index] = vga_entry(' ', terminal_colour);
+                        terminal_buffer[index] = vga_entry(' ', TERMINAL_COLOUR);
                 }
         }
 }
@@ -120,7 +112,15 @@ void terminal_scroll(void)
 		}
 	}
 
-	
+	/* Clear the last row */
+	size_t last_row_start = (VGA_HEIGHT - 1) * VGA_WIDTH;
+	for (size_t col = 0; col < VGA_WIDTH; col++)
+	{
+        	terminal_buffer[last_row_start + col] = vga_entry(' ', TERMINAL_COLOUR);
+    	}
+
+    	/* Move cursor up one row */
+    	terminal_row--;
 }
 
 void terminal_putCharAt(char c, uint8_t colour, size_t x, size_t y)
@@ -136,6 +136,9 @@ void terminal_typeChar(char c, uint8_t status)
         {
                 terminal_column = 0;
                 terminal_row++;
+
+		if (terminal_row == VGA_HEIGHT)
+			terminal_scroll();  
         }
 
         else if (c == '\r')
@@ -181,11 +184,11 @@ void kernel_main(void)
 
         terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
         terminal_writeString("Attempting to load filesystem...\n", STATUS_NORMAL);
-        terminal_writeString("Filesystem not found!\n", 2);
-        terminal_writeString("Testing...\n", 3);
-        terminal_writeString("Tabs\tend here.\n", 3);
-        terminal_writeString("Backk\bspace.\n", 3);
-        terminal_writeString("Not a\rReturn function.\n", 3);
+        terminal_writeString("Filesystem not found!\n", STATUS_FAILURE);
+        terminal_writeString("Testing...\n", STATUS_DEBUG);
+        terminal_writeString("Tabs\tend here.\n", STATUS_DEBUG);
+        terminal_writeString("Backk\bspace.\n", STATUS_DEBUG);
+        terminal_writeString("Not a\rReturn function.\n", STATUS_DEBUG);
 
         while (1 == 1)
         {
