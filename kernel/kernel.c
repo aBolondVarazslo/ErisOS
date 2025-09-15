@@ -90,6 +90,7 @@ void terminal_initialise(void)
         }
 }
 
+/* Returns the VGA colour bytes corresponding to the given status code */
 uint8_t get_colour(uint8_t status)
 {
 	switch (status)
