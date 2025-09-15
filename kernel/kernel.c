@@ -48,16 +48,19 @@ enum vga_colour {
         VGA_COLOUR_WHITE = 15,
 };
 
+/* Packs foreground and background VGA colours into a single byte */
 static inline uint8_t vga_entry_colour(enum vga_colour fg, enum vga_colour bg)
 {
         return fg | bg << 4;
 }
 
+/* Combines a character and a colour byte into a 16-bit VGA text buffer entry */
 static inline uint16_t vga_entry(unsigned char uc, uint8_t colour)
 {
         return (uint16_t) uc | (uint16_t) colour << 8;
 }
 
+/* Calculates the length of a null terminated string */
 size_t strlen(const char* str)
 {
         size_t len = 0;
@@ -132,13 +135,15 @@ void terminal_putCharAt(char c, uint8_t colour, size_t x, size_t y)
 void terminal_typeChar(char c, uint8_t status)
 {
 
+		/* If newline escape character, move left and down */
         if (c == '\n')
         {
                 terminal_column = 0;
                 terminal_row++;
 
-		if (terminal_row == VGA_HEIGHT)
-			terminal_scroll();  
+			/* Calls terminal_scroll() if terminal_row is reaches bottom of screen */
+			if (terminal_row == VGA_HEIGHT)
+				terminal_scroll();  
         }
 
         else if (c == '\r')
