@@ -14,11 +14,11 @@ void kernel_main(void)
         terminal_writeString("Not a\rReturn function.\n", STATUS_DEBUG);
         
         
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 3; i++)
         {
                 terminal_writeString("Testing...\n", STATUS_DEBUG);
         }
 
         terminal_writeString("Post for loop...\n", STATUS_DEBUG);
-        terminal_writeString("Update: 2025/10/27 @ 15:55", STATUS_DEBUG);
+        terminal_writeString("Update: 2025/10/27 @ 16:35", STATUS_DEBUG);
 }
