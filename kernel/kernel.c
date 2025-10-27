@@ -20,4 +20,5 @@ void kernel_main(void)
         }
 
         terminal_writeString("Post for loop...\n", STATUS_DEBUG);
+        terminal_writeString("Update: 2025/10/27 @ 15:55", STATUS_DEBUG);
 }

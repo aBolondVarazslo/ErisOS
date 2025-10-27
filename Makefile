@@ -29,10 +29,6 @@ all:
 	# Clean up intermediate files
 	rm -rf build/
 
-run:
-	qemu-system-i386 -cdrom ErisOS.iso --nographic
-
 clean:
-	rm -rf build/
 	rm -rf isodir/
 	rm -f ErisOS.iso
