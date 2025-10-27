@@ -18,11 +18,10 @@ For the cross-compiler and assembler, see [OSDev Wiki: GCC Cross-Compiler](https
 
 ## Build Instructions
 
-To compile ErisOS and run it in QEMU:
+To compile ErisOS:
 
 ```
 make
-make run
 ```
 
 To clean the build:
