@@ -8,12 +8,12 @@ This kernel currently uses GRUB as its bootloader and prints basic status messag
 
 ## 🧰 Requirements
 
-- **GCC** cross-compiler for i386 (`i386-elf-gcc`)
-- **GNU Assembler** (for assembly files)
+- **GCC** cross-compiler for i686 (`i686-elf-gcc`)
+- **GNU Assembler** for assembly files (`i686-elf-as`)
 - **GRUB tools** (`grub-mkrescue`)
-- **QEMU** (or any other emulator for testing)
+- **VMware** (or any other emulator for testing)
 
-You can install QEMU and GRUB using your distro's package manager.  
+You can install GRUB using your distro's package manager.
 For the cross-compiler and assembler, see [OSDev Wiki: GCC Cross-Compiler](https://wiki.osdev.org/GCC_Cross-Compiler).
 
 ## Build Instructions
@@ -50,7 +50,7 @@ To manually check if your kernel is multiboot-compliant:
 
 ## Planned features
 
-- *Keyboard input*
+- **Keyboard input**
 - Programmable interrupt timer (PIT)
 - Paging memory map parsing
 - Custom shell
