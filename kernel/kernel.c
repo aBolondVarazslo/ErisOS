@@ -1,24 +1,30 @@
 #include "terminal.h"
+#include "idt/idt.h"
 
 void kernel_main(void)
 {
-        /* Initialise terminal interface */
-        terminal_initialise();
+    /* Initialise terminal interface */
+    terminal_initialise();
 
-        terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
-        terminal_writeString("Attempting to load filesystem...\n", STATUS_NORMAL);
-        terminal_writeString("Filesystem not found!\n", STATUS_FAILURE);
+    terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
+    terminal_writeString("Attempting to load filesystem...\n", STATUS_NORMAL);
+    terminal_writeString("Filesystem not found!\n", STATUS_FAILURE);
+    terminal_writeString("Testing...\n", STATUS_DEBUG);
+    terminal_writeString("Tabs\tend here.\n", STATUS_DEBUG);
+    terminal_writeString("Backk\bspace.\n", STATUS_DEBUG);
+    terminal_writeString("Not a\rReturn function.\n", STATUS_DEBUG);
+
+
+    for (int i = 0; i < 3; i++)
+    {
         terminal_writeString("Testing...\n", STATUS_DEBUG);
-        terminal_writeString("Tabs\tend here.\n", STATUS_DEBUG);
-        terminal_writeString("Backk\bspace.\n", STATUS_DEBUG);
-        terminal_writeString("Not a\rReturn function.\n", STATUS_DEBUG);
-        
-        
-        for (int i = 0; i < 3; i++)
-        {
-                terminal_writeString("Testing...\n", STATUS_DEBUG);
-        }
+    }
 
-        terminal_writeString("Post for loop...\n", STATUS_DEBUG);
-        terminal_writeString("Update: 2025/10/27 @ 16:35", STATUS_DEBUG);
+    terminal_writeString("Post for loop...\n", STATUS_DEBUG);
+    terminal_writeString("Update: 2025/11/03 @ 18:25\n", STATUS_DEBUG);
+
+    /* Load IDT */
+    idt_init();
+
+    while(1);
 }

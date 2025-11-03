@@ -44,13 +44,13 @@ To manually check if your kernel is multiboot-compliant:
 - Coloured status messages (Green: successful, grey: in-progress tasks, red: failure, grey-on-blue: debug messages)
 - Basic terminal_write and terminal_writeString functions
 - Terminal scrolling and word wrap (kind of) support
+- Interrupt descriptor table (IDT) skeleton
 
 ---
 
 ## Planned features
 
-- Keyboard input
-- Interrupt descriptor table (IDT)
+- *Keyboard input*
 - Programmable interrupt timer (PIT)
 - Paging memory map parsing
 - Custom shell
