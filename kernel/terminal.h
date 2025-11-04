@@ -16,5 +16,6 @@ void terminal_write(const char* data, size_t size, uint8_t status);
 void terminal_writeString(const char* data, uint8_t status);
 void terminal_typeChar(char c, uint8_t status);
 void terminal_scroll(void);
+void terminal_writeHex(uint32_t);
 
 #endif

@@ -139,3 +139,15 @@ void terminal_writeString(const char* data, uint8_t status)
 {
     terminal_write(data, strlen(data), status);
 }
+
+void terminal_writeHex(uint32_t v)
+{
+    char buf[11] = "0x00000000";
+    const char hex[] = "0123456789ABCDEF";
+    for (int i = 0; i < 8; ++i)
+    {
+        buf[9 - i] = hex[v & 0xF];
+        v >>= 4;
+    }
+    terminal_writeString(buf, STATUS_DEBUG);
+}
