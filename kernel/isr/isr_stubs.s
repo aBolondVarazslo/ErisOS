@@ -1,6 +1,19 @@
-    .section .text
-    .global isr_breakpoint_stub
-    .type isr_breakpoint_stub, @function
+.section .text
+
+
+.global isr_divide_error_stub
+.type isr_divide_error_stub, @function
+
+isr_divide_error_stub:
+    cli
+    iret
+
+
+
+
+.global isr_breakpoint_stub
+.type isr_breakpoint_stub, @function
+
 isr_breakpoint_stub:
     cli
     pusha
