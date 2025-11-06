@@ -4,5 +4,5 @@
 #include <stdint.h>
 
 void isr_breakpoint(void) {
-    terminal_writeString("Breakpoint triggered.\n", STATUS_SUCCESS);
+    terminal_writeString("Breakpoint triggered.\n", STATUS_FAILURE);
 }
