@@ -34,8 +34,8 @@ all:
 	grub-mkrescue -o ErisOS.iso isodir
 
 	# Clean up intermediate files
-	#rm -rf build/
-	#rm -rf isodir/
+	rm -rf build/
+	rm -rf isodir/
 
 clean:
 	rm -rf build/
