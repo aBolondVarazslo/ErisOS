@@ -1,8 +1,16 @@
 #include "terminal.h"
 #include "idt/idt.h"
 
+/* Temporary */
+void trigger_divide_error(void) {
+    int a = 1;
+    volatile int b = 0;
+    int c = a / b;
+}
+
+
 void kernel_main(void)
-{
+{   
     /* Initialise terminal interface */
     terminal_initialise();
 
@@ -19,8 +27,10 @@ void kernel_main(void)
     asm volatile("int $0x03");
     
     
-    terminal_writeString("\nUpdate: 2025/11/04 @ 21:46\n", STATUS_DEBUG);
-    
-    
+    terminal_writeString("\nUpdate: 2025/11/06 @ 22:00\n", STATUS_DEBUG);
+
+    trigger_divide_error();
+    terminal_writeString("Post divide error.\n", STATUS_DEBUG);
+
     while(1);
 }

@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 /* C handler for breakpoint interrupt */
+void isr_divide_error(void);
 void isr_breakpoint(void);
 
 /* Assembly stubs that IDT uses */

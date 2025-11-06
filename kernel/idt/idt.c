@@ -22,8 +22,10 @@ void idt_init() {
     idt_ptr.limit = sizeof(idt) - 1;
     idt_ptr.base = (uint32_t)&idt;
 
+    
     uint16_t cs16;
     asm volatile("mov %%cs, %0" : "=r"(cs16));
+    set_idt_entry(0x00, (uint32_t)isr_divide_error_stub, cs16, 0x8E);
     set_idt_entry(0x03, (uint32_t)isr_breakpoint_stub, cs16, 0x8E);
 
     /* Load IDT */

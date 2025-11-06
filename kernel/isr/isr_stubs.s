@@ -8,6 +8,22 @@
 
 isr_divide_error_stub:      /* Temporary */
     cli
+    pusha
+
+    push %ds
+    push %es
+    push %fs
+    push %gs
+
+    call isr_divide_error
+
+    pop %gs
+    pop %fs
+    pop %es
+    pop %ds
+
+    popa
+    sti
     iret
 
 
@@ -35,4 +51,3 @@ isr_breakpoint_stub:
     popa
     sti
     iret
-    .size isr_breakpoint_stub, . - isr_breakpoint_stub
