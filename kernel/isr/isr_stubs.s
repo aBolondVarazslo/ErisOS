@@ -1,15 +1,17 @@
 .section .text
 
 
+/* Divide error */
+
 .global isr_divide_error_stub
 .type isr_divide_error_stub, @function
 
-isr_divide_error_stub:
+isr_divide_error_stub:      /* Temporary */
     cli
     iret
 
 
-
+/* Breakpoint */
 
 .global isr_breakpoint_stub
 .type isr_breakpoint_stub, @function
