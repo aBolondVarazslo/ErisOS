@@ -2,3 +2,4 @@ build/
 isodir
 *.iso
 notes.txt
+debugging.*
