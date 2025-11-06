@@ -6,7 +6,7 @@ This kernel currently uses GRUB as its bootloader and prints basic status messag
 
 ---
 
-## 🧰 Requirements
+## Requirements
 
 - **GCC** cross-compiler for i686 (`i686-elf-gcc`)
 - **GNU Assembler** for assembly files (`i686-elf-as`)
