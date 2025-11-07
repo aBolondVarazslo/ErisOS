@@ -1,12 +1,20 @@
 .section .text
 
 
-/* Divide error */
+/* Reboot */
+.global reboot_stub
+.type reboot_stub, @function
+reboot_stub:
+    cli
 
+    movb $0xFE, %al
+    outb %al, $0x64
+
+
+/* Divide error */
 .global isr_divide_error_stub
 .type isr_divide_error_stub, @function
-
-isr_divide_error_stub:      /* Temporary */
+isr_divide_error_stub:
     cli
     pusha
 
@@ -23,15 +31,16 @@ isr_divide_error_stub:      /* Temporary */
     pop %ds
 
     popa
+
+    call reboot_stub
+
     sti
     iret
 
 
 /* Breakpoint */
-
 .global isr_breakpoint_stub
 .type isr_breakpoint_stub, @function
-
 isr_breakpoint_stub:
     cli
     pusha
