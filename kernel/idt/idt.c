@@ -23,8 +23,8 @@ void idt_init() {
 
 	uint16_t cs16;
 	asm volatile("mov %%cs, %0" : "=r"(cs16));
-	set_idt_entry(0x00, (uint32_t)isr_divide_error_stub, cs16, 0x8E);
-	set_idt_entry(0x03, (uint32_t)isr_breakpoint_stub, cs16, 0x8E);
+	set_idt_entry(IDT_DIVIDE_ERROR, (uint32_t)isr_divide_error_stub, cs16, IDT_FLAG_KERNEL_INTERRUPT);
+	set_idt_entry(IDT_BREAKPOINT, (uint32_t)isr_breakpoint_stub, cs16, IDT_FLAG_KERNEL_INTERRUPT);
 
 	/* Load IDT */
 	asm volatile("lidt %0" : : "m"(idt_ptr));

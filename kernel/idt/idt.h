@@ -3,6 +3,18 @@
 
 #include <stdint.h>
 
+#define IDT_DIVIDE_ERROR    0x00
+#define IDT_BREAKPOINT      0x03
+
+#define IDT_FLAG_PRESENT        0x80
+#define IDT_FLAG_RING0          0x00
+#define IDT_FLAG_RING3          0x60
+#define IDT_FLAG_GATE_INTERRUPT 0x0E
+#define IDT_FLAG_GATE_TRAP      0x0F
+
+#define IDT_FLAG_KERNEL_INTERRUPT (IDT_FLAG_PRESENT | IDT_FLAG_RING0 | IDT_FLAG_GATE_INTERRUPT)
+
+
 /* 32-bit IDT entry struct */
 struct IDTEntry {
     uint16_t offset_low;    /* Lower 16 bits */

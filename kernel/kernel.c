@@ -18,7 +18,7 @@ void kernel_main(void) {
 	trigger_breakpoint();
 	// trigger_divide_error();
 
-	terminal_writeString("\nUpdate: 2025/11/07 @ 18:45\n", STATUS_DEBUG);
+	terminal_writeString("\nUpdate: 2025/11/07 @ 21:07\n", STATUS_DEBUG);
 
 	while (1);
 }
