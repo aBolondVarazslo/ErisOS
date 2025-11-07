@@ -7,28 +7,26 @@
 struct IDTEntry idt[256];
 struct IDTPointer idt_ptr;
 
-
 /* Fills one IDT entry */
 void set_idt_entry(int n, uint32_t handler, uint16_t selector, uint8_t flags) {
-    idt[n].offset_low = handler & 0xFFFF;
-    idt[n].selector = selector;
-    idt[n].zero = 0;
-    idt[n].flags = flags;
-    idt[n].offset_high = (handler >> 16) & 0xFFFF;
+	idt[n].offset_low = handler & 0xFFFF;
+	idt[n].selector = selector;
+	idt[n].zero = 0;
+	idt[n].flags = flags;
+	idt[n].offset_high = (handler >> 16) & 0xFFFF;
 }
 
 /* Initialise IDT */
 void idt_init() {
-    idt_ptr.limit = sizeof(idt) - 1;
-    idt_ptr.base = (uint32_t)&idt;
+	idt_ptr.limit = sizeof(idt) - 1;
+	idt_ptr.base = (uint32_t)&idt;
 
-    
-    uint16_t cs16;
-    asm volatile("mov %%cs, %0" : "=r"(cs16));
-    set_idt_entry(0x00, (uint32_t)isr_divide_error_stub, cs16, 0x8E);
-    set_idt_entry(0x03, (uint32_t)isr_breakpoint_stub, cs16, 0x8E);
+	uint16_t cs16;
+	asm volatile("mov %%cs, %0" : "=r"(cs16));
+	set_idt_entry(0x00, (uint32_t)isr_divide_error_stub, cs16, 0x8E);
+	set_idt_entry(0x03, (uint32_t)isr_breakpoint_stub, cs16, 0x8E);
 
-    /* Load IDT */
-    asm volatile("lidt %0" : : "m" (idt_ptr));
-    terminal_writeString("IDT Initialised.\n", STATUS_SUCCESS);
+	/* Load IDT */
+	asm volatile("lidt %0" : : "m"(idt_ptr));
+	terminal_writeString("IDT Initialised.\n", STATUS_SUCCESS);
 }
