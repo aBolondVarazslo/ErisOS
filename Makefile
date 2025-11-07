@@ -3,6 +3,7 @@ all:
 	mkdir -p build/bootloader
 	mkdir -p build/kernel/idt
 	mkdir -p build/kernel/isr
+	mkdir -p build/kernel/debugging
 
 	# Assemble the bootloader
 	i686-elf-as bootloader/boot.s -o build/bootloader/boot.o
@@ -11,6 +12,7 @@ all:
 	# Compile kernel source files
 	i686-elf-gcc -c kernel/kernel.c -o build/kernel/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/terminal.c -o build/kernel/terminal.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c kernel/debugging/debugging.c -o build/kernel/debugging/debugging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/idt/idt.c -o build/kernel/idt/idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/isr/isr.c -o build/kernel/isr/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
@@ -19,6 +21,7 @@ all:
 		build/bootloader/boot.o \
 		build/kernel/kernel.o \
 		build/kernel/terminal.o \
+		build/kernel/debugging/debugging.o \
 		build/kernel/idt/idt.o \
 		build/kernel/isr/isr.o \
 		build/kernel/isr/isr_stubs.o \

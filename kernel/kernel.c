@@ -1,13 +1,6 @@
 #include "terminal.h"
 #include "idt/idt.h"
-
-/* Temporary */
-void trigger_divide_error(void) {
-    int a = 1;
-    volatile int b = 0;
-    int c = a / b;
-}
-
+#include "debugging/debugging.h"
 
 void kernel_main(void)
 {   
@@ -24,13 +17,10 @@ void kernel_main(void)
     idt_init();
     
     /* Test IDT and ISR */
-    asm volatile("int $0x03");
+    trigger_breakpoint();
+    //trigger_divide_error();
     
-    
-    terminal_writeString("\nUpdate: 2025/11/06 @ 22:00\n", STATUS_DEBUG);
-
-    trigger_divide_error();
-    terminal_writeString("Post divide error.\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2025/11/07 @ 18:45\n", STATUS_DEBUG);
 
     while(1);
 }
