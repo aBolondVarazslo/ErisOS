@@ -5,7 +5,10 @@
 
 /* C handler for breakpoint interrupt */
 void isr_divide_error(void);
+void isr_debug_exception(void);
+void isr_nmi(void);
 void isr_breakpoint(void);
+void isr_overflow(void);
 
 /* Assembly stubs that IDT uses */
 extern void isr_divide_error_stub(void);                 /* 0x00 */
@@ -40,5 +43,7 @@ extern void isr_reserved_0x1C_stub(void);                /* 0x1C */
 extern void isr_reserved_0x1D_stub(void);                /* 0x1D */
 extern void isr_security_exception_stub(void);           /* 0x1E */
 extern void isr_reserved_0x1F_stub(void);                /* 0x1F */
+
+extern void (*isr_stubs[4])(void);
 
 #endif

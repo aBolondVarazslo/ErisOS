@@ -11,38 +11,54 @@ reboot_stub:
     outb %al, $0x64
 
 
-/* Divide error */
-.global isr_divide_error_stub
-.type isr_divide_error_stub, @function
-isr_divide_error_stub:
+/* Debug exception */
+.global isr_debug_exception_stub
+.type isr_debug_exception_stub, @function
+isr_debug_exception_stub:
     cli
-    pusha
 
+    movl 8(%esp), %eax
+    andl $0xFFFFFEFF, %eax
+    movl %eax, 8(%esp)
+
+    pusha
     push %ds
     push %es
     push %fs
     push %gs
 
-    call isr_divide_error
+    call isr_debug_exception
 
     pop %gs
     pop %fs
     pop %es
     pop %ds
-
     popa
-
-    call reboot_stub
 
     sti
     iret
+
+
+/* Divide error */
+.global isr_divide_error_stub
+.type isr_divide_error_stub, @function
+isr_divide_error_stub:
+    call isr_divide_error
+    call reboot_stub
+
+
+/* NMI */
+.global isr_nmi_stub
+.type isr_nmi_stub, @function
+isr_nmi_stub:
+    call isr_nmi
+    call reboot_stub
 
 
 /* Breakpoint */
 .global isr_breakpoint_stub
 .type isr_breakpoint_stub, @function
 isr_breakpoint_stub:
-    cli
     pusha
 
     push %ds
@@ -58,5 +74,25 @@ isr_breakpoint_stub:
     pop %ds
 
     popa
-    sti
     iret
+
+
+/* Overflow */
+.global isr_overflow_stub
+.type isr_overflow_stub, @function
+isr_overflow_stub:
+    pusha
+
+    push %ds
+    push %es
+    push %fs
+    push %gs
+
+    call isr_overflow
+
+    pop %gs
+    pop %fs
+    pop %es
+    pop %ds
+
+    popa
