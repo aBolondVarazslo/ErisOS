@@ -81,18 +81,5 @@ isr_breakpoint_stub:
 .global isr_overflow_stub
 .type isr_overflow_stub, @function
 isr_overflow_stub:
-    pusha
-
-    push %ds
-    push %es
-    push %fs
-    push %gs
-
     call isr_overflow
-
-    pop %gs
-    pop %fs
-    pop %es
-    pop %ds
-
-    popa
+    call reboot_stub

@@ -45,7 +45,7 @@ extern struct IDTEntry idt[256];
 void idt_init(void);
 void set_idt_entry(int n, uint32_t handler, uint16_t selector, uint8_t flags);
 
-/* Array of ISR stubs (defined in isr.h or isr.c) */
-extern void (*isr_stubs[4])(void);
+/* Array of ISR stubs */
+extern void (*isr_stubs[5])(void);
 
 #endif

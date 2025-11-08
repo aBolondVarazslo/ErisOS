@@ -24,9 +24,10 @@ void isr_overflow(void) {
 }
 
 /* Array of assembly stubs */
-void (*isr_stubs[4])(void) = {
+void (*isr_stubs[5])(void) = {
     isr_divide_error_stub,                  /* 0x00 */
     isr_debug_exception_stub,               /* 0x01 */
     isr_nmi_stub,                           /* 0x02 */
     isr_breakpoint_stub,                    /* 0x03 */
+    isr_overflow_stub                       /* 0x04 */
     };
