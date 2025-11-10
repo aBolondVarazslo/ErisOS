@@ -26,6 +26,10 @@ void isr_overflow(void) {
     while(1);
 }
 
+void isr_bound_range_exceeded(void) {
+    terminal_writeString("Bound range exceeded!", STATUS_FAILURE);
+}
+
 /* Array of assembly stubs */
 void (*isr_stubs[5])(void) = {
     isr_divide_error_stub,                  /* 0x00 */

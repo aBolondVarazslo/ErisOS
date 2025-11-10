@@ -70,3 +70,10 @@ isr_breakpoint_stub:
 .type isr_overflow_stub, @function
 isr_overflow_stub:
     call isr_overflow
+
+
+/* Bound range exceeded */
+.global isr_bound_range_exceeded_stub
+.type isr_bound_range_exceeded_stub, @function
+isr_bound_range_exceeded_stub:
+    call isr_bound_range_exceeded
