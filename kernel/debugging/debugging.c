@@ -32,12 +32,12 @@ void trigger_debug_exception(void) {
 }
 
 /* 0x03 */
-void trigger_breakpoint() {
+void trigger_breakpoint(void) {
     asm volatile("int $0x03");
 }
 
 /* 0x04 */
-void trigger_overflow() {
+void trigger_overflow(void) {
     asm volatile (
         "movl $0x7FFFFFFF, %%eax\n\t"
         "addl $1, %%eax\n\t"
@@ -49,7 +49,7 @@ void trigger_overflow() {
 }
 
 /* 0x05 */
-void trigger_bound_range_exception() {
+void trigger_bound_range_exception(void) {
     int bounds[2] = {0, 10};
     int value = 15;
 
