@@ -1,16 +1,6 @@
 .section .text
 
 
-/* Reboot */
-.global reboot_stub
-.type reboot_stub, @function
-reboot_stub:
-    cli
-
-    movb $0xFE, %al
-    outb %al, $0x64
-
-
 /* Debug exception */
 .global isr_debug_exception_stub
 .type isr_debug_exception_stub, @function
@@ -44,7 +34,6 @@ isr_debug_exception_stub:
 .type isr_divide_error_stub, @function
 isr_divide_error_stub:
     call isr_divide_error
-    call reboot_stub
 
 
 /* NMI */
@@ -52,7 +41,6 @@ isr_divide_error_stub:
 .type isr_nmi_stub, @function
 isr_nmi_stub:
     call isr_nmi
-    call reboot_stub
 
 
 /* Breakpoint */
@@ -82,4 +70,3 @@ isr_breakpoint_stub:
 .type isr_overflow_stub, @function
 isr_overflow_stub:
     call isr_overflow
-    call reboot_stub

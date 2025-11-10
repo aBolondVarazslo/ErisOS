@@ -5,6 +5,7 @@
 /* C handlers */
 void isr_divide_error(void) {
     terminal_writeString("Divide error!\n", STATUS_FAILURE);
+    while (1);
 }
 
 void isr_debug_exception(void) {
@@ -13,6 +14,7 @@ void isr_debug_exception(void) {
 
 void isr_nmi(void) {
     terminal_writeString("Non-maskable interrupt!\n", STATUS_FAILURE);
+    while(1);
 }
 
 void isr_breakpoint(void) {
@@ -21,6 +23,7 @@ void isr_breakpoint(void) {
 
 void isr_overflow(void) {
     terminal_writeString("Overflow!", STATUS_FAILURE);
+    while(1);
 }
 
 /* Array of assembly stubs */
