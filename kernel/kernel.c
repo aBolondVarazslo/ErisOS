@@ -17,7 +17,8 @@ void kernel_main(void) {
     /* Test IDT and ISR */
     trigger_breakpoint();
     // trigger_divide_error();
-    //trigger_overflow();
+    // trigger_overflow();
+    // trigger_bound_range_exception();
 
     terminal_writeString("\nUpdate: 2025/11/07 @ 21:07\n", STATUS_DEBUG);
 

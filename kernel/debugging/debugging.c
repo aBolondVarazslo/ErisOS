@@ -47,3 +47,17 @@ void trigger_overflow() {
         : "eax"
     );
 }
+
+/* 0x05 */
+void trigger_bound_range_exception() {
+    int bounds[2] = {0, 10};
+    int value = 15;
+
+    asm volatile (
+        "movl %[val], %%eax\n\t"
+        "bound %%eax, %[bnds]\n\t"
+        :
+        : [val]"r"(value), [bnds]"m"(bounds)
+        : "eax"
+    );
+}
