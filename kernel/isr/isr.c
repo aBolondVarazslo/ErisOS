@@ -31,6 +31,11 @@ void isr_bound_range_exceeded(void) {
     while(1);
 }
 
+void isr_invalid_opcode(void) {
+    terminal_writeString("Invalid opcode!", STATUS_FAILURE);
+    while(1);
+}
+
 /* Array of assembly stubs */
 void (*isr_stubs[6])(void) = {
     isr_divide_error_stub,                  /* 0x00 */

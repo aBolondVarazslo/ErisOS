@@ -77,3 +77,10 @@ isr_overflow_stub:
 .type isr_bound_range_exceeded_stub, @function
 isr_bound_range_exceeded_stub:
     call isr_bound_range_exceeded
+
+
+/* Invalid opcode */
+.global isr_invalid_opcode_stub
+.type isr_invalid_opcode_stub, @function
+isr_invalid_opcode_stub:
+    call isr_invalid_opcode

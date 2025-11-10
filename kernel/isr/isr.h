@@ -10,6 +10,7 @@ void isr_nmi(void);
 void isr_breakpoint(void);
 void isr_overflow(void);
 void isr_bound_range_exceeded(void);
+void isr_invalid_opcode(void);
 
 /* Assembly stubs that IDT uses */
 extern void isr_divide_error_stub(void);                 /* 0x00 */
