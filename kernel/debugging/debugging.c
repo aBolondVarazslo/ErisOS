@@ -3,12 +3,12 @@
 /* 0x00 */
 /* Uses inline assembly rather than C to cause #DE */
 void trigger_divide_error(void) {
-    asm volatile("movl $1, %%eax\n\t"
-                 "xorl %%edx, %%edx\n\t"
-                 "idivl %%edx\n\t"
-                 :
-                 :
-                 : "eax", "edx");
+    asm volatile ("movl $1, %%eax\n\t"
+        "xorl %%edx, %%edx\n\t"
+        "idivl %%edx\n\t"
+        :
+        :
+        : "eax", "edx");
 }
 
 /* 0x01 */
@@ -33,7 +33,7 @@ void trigger_debug_exception(void) {
 
 /* 0x03 */
 void trigger_breakpoint(void) {
-    asm volatile("int $0x03");
+    asm volatile ("int $0x03");
 }
 
 /* 0x04 */
@@ -60,4 +60,9 @@ void trigger_bound_range_exception(void) {
         : [val]"r"(value), [bnds]"m"(bounds)
         : "eax"
     );
+}
+
+/* 0x06 */
+void trigger_invalid_opcode(void) {
+    asm volatile ("ud2");
 }

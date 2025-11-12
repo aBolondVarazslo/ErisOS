@@ -15,11 +15,8 @@ void kernel_main(void) {
     idt_init();
 
     /* Test IDT and ISR */
-    trigger_breakpoint();
-    // trigger_divide_error();
-    // trigger_overflow();
-    // trigger_bound_range_exception();
-
+    trigger_invalid_opcode();
+    
     terminal_writeString("\nUpdate: 2025/11/07 @ 21:07\n", STATUS_DEBUG);
 
     while (1);
