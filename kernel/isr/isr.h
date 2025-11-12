@@ -46,6 +46,6 @@ extern void isr_reserved_0x1D_stub(void);                /* 0x1D */
 extern void isr_security_exception_stub(void);           /* 0x1E */
 extern void isr_reserved_0x1F_stub(void);                /* 0x1F */
 
-extern void (*isr_stubs[6])(void);
+extern void (*isr_stubs[7])(void);
 
 #endif

@@ -46,6 +46,6 @@ void idt_init(void);
 void set_idt_entry(int n, uint32_t handler, uint16_t selector, uint8_t flags);
 
 /* Array of ISR stubs */
-extern void (*isr_stubs[6])(void);
+extern void (*isr_stubs[7])(void);
 
 #endif
