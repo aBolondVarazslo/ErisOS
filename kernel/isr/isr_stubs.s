@@ -29,20 +29,6 @@ isr_debug_exception_stub:
     iret
 
 
-/* Divide error */
-.global isr_divide_error_stub
-.type isr_divide_error_stub, @function
-isr_divide_error_stub:
-    call isr_divide_error
-
-
-/* NMI */
-.global isr_nmi_stub
-.type isr_nmi_stub, @function
-isr_nmi_stub:
-    call isr_nmi
-
-
 /* Breakpoint */
 .global isr_breakpoint_stub
 .type isr_breakpoint_stub, @function
@@ -64,23 +50,7 @@ isr_breakpoint_stub:
     popa
     iret
 
-
-/* Overflow */
-.global isr_overflow_stub
-.type isr_overflow_stub, @function
-isr_overflow_stub:
-    call isr_overflow
-
-
-/* Bound range exceeded */
-.global isr_bound_range_exceeded_stub
-.type isr_bound_range_exceeded_stub, @function
-isr_bound_range_exceeded_stub:
-    call isr_bound_range_exceeded
-
-
-/* Invalid opcode */
-.global isr_invalid_opcode_stub
-.type isr_invalid_opcode_stub, @function
-isr_invalid_opcode_stub:
-    call isr_invalid_opcode
+.global isr_common_stub
+.type isr_common_stub, @function
+isr_common_stub:
+    call isr_common_handler

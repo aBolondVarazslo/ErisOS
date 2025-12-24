@@ -25,9 +25,18 @@ void idt_init(void) {
     asm volatile("mov %%cs, %0" : "=r"(cs16));
 
     /* Loop through CPU exceptions and set IDT entries */
-    for (int i = 0; i < 7; i++) {
-        if (isr_stubs[i]) {
-            set_idt_entry(i, (uint32_t)isr_stubs[i], cs16, IDT_FLAG_KERNEL_INTERRUPT);
+    for (int i = 0; i < 32; i++) {
+        if (i == 1) {
+            set_idt_entry(1, (uint32_t)isr_stubs[0], cs16, IDT_FLAG_KERNEL_INTERRUPT);
+        }
+        
+        else if (i == 3)
+        {
+            set_idt_entry(3, (uint32_t)isr_stubs[1], cs16, IDT_FLAG_KERNEL_INTERRUPT);
+        }
+
+        else {
+            set_idt_entry(i, (uint32_t)isr_stubs[2], cs16, IDT_FLAG_KERNEL_INTERRUPT);
         }
     }
 
