@@ -18,7 +18,7 @@ void kernel_main(void) {
     trigger_debug_exception();
     trigger_breakpoint();
 
-    terminal_writeString("\nUpdate: 2025/01/12 @ 22:12\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2025/01/13 @ 14:20\n", STATUS_DEBUG);
 
     while (1);
 }
