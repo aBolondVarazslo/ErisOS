@@ -22,31 +22,38 @@ typedef struct __attribute__((packed))
 /* Strings to be displayed during interrupt handler */
 static const char *interrupt_messages[] =
 {
-    "Divide Error",
-    "Debug Exception",
-    "Non-Maskable Interrupt",
-    "Breakpoint",
-    "Overflow",
-    "BOUND Range Exceeded",
-    "Invalid Opcode",
-    "Device Not Available",
-    "Double Fault",
-    "Coprocessor Segment Overrun",
-    "Invalid TSS",
-    "Segment Not Present",
-    "Stack-Segment Fault",
-    "General Protection Fault",
-    "Page Fault",
-    "Reserved",
-    "Floating-Point Error",
-    "Alignment Check",
-    "Machine Check",
-    "SIMD Floating-Point Error",
-    "Virtualisation Exception",
-    "Control Protection Exception",
-    "Hypervisor Injection Exception",
-    "VMM Communication Exception",
-    "Security Exception",
+    "Divide Error",                     /* 0x00 */
+    "Debug Exception",                  /* 0x01 */
+    "Non-Maskable Interrupt",           /* 0x02 */
+    "Breakpoint",                       /* 0x03 */
+    "Overflow",                         /* 0x04 */
+    "BOUND Range Exceeded",             /* 0x05 */
+    "Invalid Opcode",                   /* 0x06 */
+    "Device Not Available",             /* 0x07 */
+    "Double Fault",                     /* 0x08 */
+    "Coprocessor Segment Overrun",      /* 0x09 */
+    "Invalid TSS",                      /* 0x10 */
+    "Segment Not Present",              /* 0x11 */
+    "Stack-Segment Fault",              /* 0x12 */
+    "General Protection Fault",         /* 0x13 */
+    "Page Fault",                       /* 0x14 */
+    "Reserved",                         /* 0x15 */
+    "Floating-Point Error",             /* 0x16 */
+    "Alignment Check",                  /* 0x17 */
+    "Machine Check",                    /* 0x18 */
+    "SIMD Floating-Point Error",        /* 0x19 */
+    "Virtualisation Exception",         /* 0x20 */
+    "Control Protection Exception",     /* 0x21 */
+    "Hypervisor Injection Exception",   /* 0x22 */
+    "VMM Communication Exception",      /* 0x23 */
+    "Security Exception",               /* 0x24 */
+    "Reserved",                         /* 0x25 */
+    "Reserved",                         /* 0x26 */
+    "Reserved",                         /* 0x27 */
+    "Reserved",                         /* 0x28 */
+    "Reserved",                         /* 0x29 */
+    "Reserved",                         /* 0x30 */
+    "Reserved",                         /* 0x31 */
 };
 
 /* Assembly stubs that IDT uses */
