@@ -61,10 +61,10 @@ isr_common_stub:
     mov eax, esp
     push eax
 
-    mov eax, [esp + 32]
+    mov eax, [esp + 40]
     push eax
 
-    mov eax, [esp + 32]
+    mov eax, [esp + 40]
     push eax
 
     call isr_common_handler
