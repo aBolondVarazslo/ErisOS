@@ -43,7 +43,7 @@ void isr_common_handler(uint32_t int_no,
 }
 
 /* Array of assembly stubs */
-void (*isr_stubs[25])(void) = {
+void (*isr_stubs[32])(void) = {
     isr0_stub,
     isr_debug_exception_stub,               /* 0x01 */
     isr2_stub,
@@ -69,4 +69,11 @@ void (*isr_stubs[25])(void) = {
     isr22_stub,
     isr23_stub,
     isr24_stub,
+    isr25_stub,
+    isr26_stub,
+    isr27_stub,
+    isr28_stub,
+    isr29_stub,
+    isr30_stub,
+    isr31_stub,
 };

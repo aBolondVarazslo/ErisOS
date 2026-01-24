@@ -82,7 +82,14 @@ extern void isr21_stub(void);
 extern void isr22_stub(void);
 extern void isr23_stub(void);
 extern void isr24_stub(void);
+extern void isr25_stub(void);
+extern void isr26_stub(void);
+extern void isr27_stub(void);
+extern void isr28_stub(void);
+extern void isr29_stub(void);
+extern void isr30_stub(void);
+extern void isr31_stub(void);
 
-extern void (*isr_stubs[25])(void);
+extern void (*isr_stubs[32])(void);
 
 #endif
