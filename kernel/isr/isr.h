@@ -38,7 +38,7 @@ static const char *interrupt_messages[] =
     "General Protection Fault",         /* 0x13 */
     "Page Fault",                       /* 0x14 */
     "Reserved",                         /* 0x15 */
-    "Floating-Point Error",             /* 0x16 */
+    "x87 Floating-Point Error",         /* 0x16 */
     "Alignment Check",                  /* 0x17 */
     "Machine Check",                    /* 0x18 */
     "SIMD Floating-Point Error",        /* 0x19 */
