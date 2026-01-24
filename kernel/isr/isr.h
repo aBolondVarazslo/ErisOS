@@ -19,6 +19,36 @@ typedef struct __attribute__((packed))
     uint32_t ss;
 } interrupt_stack_frame_t;
 
+/* Strings to be displayed during interrupt handler */
+static const char *interrupt_messages[] =
+{
+    "Divide Error",
+    "Debug Exception",
+    "Non-Maskable Interrupt",
+    "Breakpoint",
+    "Overflow",
+    "BOUND Range Exceeded",
+    "Invalid Opcode",
+    "Device Not Available",
+    "Double Fault",
+    "Coprocessor Segment Overrun",
+    "Invalid TSS",
+    "Segment Not Present",
+    "Stack-Segment Fault",
+    "General Protection Fault",
+    "Page Fault",
+    "Reserved",
+    "Floating-Point Error",
+    "Alignment Check",
+    "Machine Check",
+    "SIMD Floating-Point Error",
+    "Virtualisation Exception",
+    "Control Protection Exception",
+    "Hypervisor Injection Exception",
+    "VMM Communication Exception",
+    "Security Exception",
+};
+
 /* Assembly stubs that IDT uses */
 extern void isr_debug_exception_stub(void);     /* 0x01 */
 extern void isr_breakpoint_stub(void);          /* 0x03 */
