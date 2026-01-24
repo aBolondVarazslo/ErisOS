@@ -56,11 +56,22 @@ isr_breakpoint_stub:
 .global isr_common_stub
 .type isr_common_stub, @function
 isr_common_stub:
+    pusha
+
+    mov eax, esp
+    push eax
+
+    mov eax, [esp + 36]
+    push eax
+
+    mov eax, [esp + 36]
+    push eax
+
     call isr_common_handler
 
-
-.intel_syntax noprefix
-.code32
+    add esp, 12
+    popa
+    iretd
 
 /* Divide Error (0x00) */
 .global isr0_stub
