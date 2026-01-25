@@ -27,7 +27,7 @@ void idt_init(void) {
     /* Loop through CPU exceptions and set IDT entries */
     for (int i = 0; i < 32; i++)
     {
-            set_idt_entry(i, (uint32_t)isr_stubs[i], cs16, IDT_FLAG_KERNEL_INTERRUPT);
+        set_idt_entry(i, (uint32_t)isr_stubs[i], cs16, IDT_FLAG_KERNEL_INTERRUPT);
     }
 
     /* Load IDT */
