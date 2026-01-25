@@ -18,7 +18,7 @@ void kernel_main(void) {
     trigger_debug_exception();
     trigger_breakpoint();
 
-    //trigger_invalid_opcode();
+    // trigger_invalid_opcode();
 
     terminal_writeString("\nUpdate: 2025/01/24 @ 21:13\n", STATUS_DEBUG);
 

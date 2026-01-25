@@ -10,8 +10,7 @@ void isr_common_handler();
 
 /* CPU registers saved on stack during an interrupt
    Packed to match exact memory layout of stack on interrupt */
-typedef struct __attribute__((packed))
-{
+typedef struct __attribute__((packed)) {
     uint32_t eip;
     uint32_t cs;
     uint32_t eflags;
