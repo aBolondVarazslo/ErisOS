@@ -1,5 +1,6 @@
 #include "pic.h"
 #include "../io/io.h"
+#include "../terminal.h"
 
 void PIC_remap(uint8_t offset1, uint8_t offset2) {
     /* Start initialisation in cascade mode, and tell PICs ICW4 will be present */
@@ -28,9 +29,13 @@ void PIC_remap(uint8_t offset1, uint8_t offset2) {
     /* Unmask all IRQs */
     outb(PIC1_DATA, 0x00);
     outb(PIC2_DATA, 0x00);
+
+    terminal_writeString("PIC Remapped", STATUS_SUCCESS);
 }
 
 void PIC_set_mask(uint8_t mask1, uint8_t mask2) {
     outb(PIC1_DATA, mask1);
     outb(PIC2_DATA, mask2);
+
+    terminal_writeString("PIC masked", STATUS_SUCCESS);
 }
