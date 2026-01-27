@@ -29,3 +29,8 @@ void PIC_remap(uint8_t offset1, uint8_t offset2) {
     outb(PIC1_DATA, 0x00);
     outb(PIC2_DATA, 0x00);
 }
+
+void PIC_set_mask(uint8_t mask1, uint8_t mask2) {
+    outb(PIC1_DATA, mask1);
+    outb(PIC2_DATA, mask2);
+}
