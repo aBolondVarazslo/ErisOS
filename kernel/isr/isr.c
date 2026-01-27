@@ -10,7 +10,7 @@ void isr_breakpoint(void) {
     terminal_writeString("Breakpoint triggered.\n", STATUS_DEBUG);
 }
 
-void isr_common_handler(uint32_t int_no, uint32_t err_code, interrupt_stack_frame_t *frame) {
+void isr_common_handler(uint32_t int_no, interrupt_stack_frame_t *frame, uint32_t err_code) {
     terminal_writeString("INTERRUPT: ", STATUS_FAILURE);
 
     if (int_no < 32) {
