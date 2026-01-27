@@ -28,4 +28,7 @@
 
 #define CASCADE_IRQ     2
 
+void PIC_remap();
+void PIC_set_mask();
+
 #endif
