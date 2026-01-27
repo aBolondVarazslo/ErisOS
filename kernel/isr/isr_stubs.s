@@ -52,39 +52,22 @@ isr_breakpoint_stub:
     popa
     iretd
 
-/* Common stub */
-.global isr_common_stub
-.type isr_common_stub, @function
-isr_common_stub:
-    pusha
-
-    mov eax, esp
-    push eax
-
-    mov eax, [esp + 40]
-    push eax
-
-    mov eax, [esp + 40]
-    push eax
-
-    call isr_common_handler
-
-    add esp, 12
-    popa
-    iretd
-
 /* Divide Error (0x00) */
 .global isr0_stub
 .type isr0_stub, @function
 isr0_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 0
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Non-Maskable Interrupt (0x02) */
 .global isr2_stub
 .type isr2_stub, @function
 isr2_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 2
     jmp isr_common_stub
@@ -93,6 +76,8 @@ isr2_stub:
 .global isr4_stub
 .type isr4_stub, @function
 isr4_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 4
     jmp isr_common_stub
@@ -101,14 +86,18 @@ isr4_stub:
 .global isr5_stub
 .type isr5_stub, @function
 isr5_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 5
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Invalid Opcode (0x06) */
 .global isr6_stub
 .type isr6_stub, @function
 isr6_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 6
     jmp isr_common_stub
@@ -117,6 +106,8 @@ isr6_stub:
 .global isr7_stub
 .type isr7_stub, @function
 isr7_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 7
     jmp isr_common_stub
@@ -133,6 +124,8 @@ isr8_stub:
 .global isr9_stub
 .type isr9_stub, @function
 isr9_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 9
     jmp isr_common_stub
@@ -181,6 +174,8 @@ isr14_stub:
 .global isr15_stub
 .type isr15_stub, @function
 isr15_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 15
     jmp isr_common_stub
@@ -189,6 +184,8 @@ isr15_stub:
 .global isr16_stub
 .type isr16_stub, @function
 isr16_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 16
     jmp isr_common_stub
@@ -205,6 +202,8 @@ isr17_stub:
 .global isr18_stub
 .type isr18_stub, @function
 isr18_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 18
     jmp isr_common_stub
@@ -213,6 +212,8 @@ isr18_stub:
 .global isr19_stub
 .type isr19_stub, @function
 isr19_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 19
     jmp isr_common_stub
@@ -221,6 +222,8 @@ isr19_stub:
 .global isr20_stub
 .type isr20_stub, @function
 isr20_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 20
     jmp isr_common_stub
@@ -229,6 +232,8 @@ isr20_stub:
 .global isr21_stub
 .type isr21_stub, @function
 isr21_stub:
+    lea eax, [esp]
+    push eax
     push 0
     push 21
     jmp isr_common_stub
@@ -237,6 +242,7 @@ isr21_stub:
 .global isr22_stub
 .type isr22_stub, @function
 isr22_stub:
+    lea eax, [esp]
     push 0
     push 22
     jmp isr_common_stub
@@ -244,6 +250,7 @@ isr22_stub:
 .global isr23_stub
 .type isr23_stub, @function
 isr23_stub:
+    lea eax, [esp]
     push 0
     push 23
     jmp isr_common_stub
@@ -251,6 +258,7 @@ isr23_stub:
 .global isr24_stub
 .type isr24_stub, @function
 isr24_stub:
+    lea eax, [esp]
     push 0
     push 24
     jmp isr_common_stub
@@ -258,6 +266,7 @@ isr24_stub:
 .global isr25_stub
 .type isr25_stub, @function
 isr25_stub:
+    lea eax, [esp]
     push 0
     push 25
     jmp isr_common_stub
@@ -265,6 +274,7 @@ isr25_stub:
 .global isr26_stub
 .type isr26_stub, @function
 isr26_stub:
+    lea eax, [esp]
     push 0
     push 26
     jmp isr_common_stub
@@ -272,6 +282,7 @@ isr26_stub:
 .global isr27_stub
 .type isr27_stub, @function
 isr27_stub:
+    lea eax, [esp]
     push 0
     push 27
     jmp isr_common_stub
@@ -279,6 +290,7 @@ isr27_stub:
 .global isr28_stub
 .type isr28_stub, @function
 isr28_stub:
+    lea eax, [esp]
     push 0
     push 28
     jmp isr_common_stub
@@ -286,6 +298,7 @@ isr28_stub:
 .global isr29_stub
 .type isr29_stub, @function
 isr29_stub:
+    lea eax, [esp]
     push 0
     push 29
     jmp isr_common_stub
@@ -293,6 +306,7 @@ isr29_stub:
 .global isr30_stub
 .type isr30_stub, @function
 isr30_stub:
+    lea eax, [esp]
     push 0
     push 30
     jmp isr_common_stub
@@ -300,6 +314,7 @@ isr30_stub:
 .global isr31_stub
 .type isr31_stub, @function
 isr31_stub:
+    lea eax, [esp]
     push 0
     push 31
     jmp isr_common_stub
