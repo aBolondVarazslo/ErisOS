@@ -1,6 +1,5 @@
 #include "idt.h"
 #include "../terminal.h"
-#include "../vga.h"
 #include "../isr/isr.h"
 
 /* IDT */
