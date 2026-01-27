@@ -6,6 +6,7 @@ all:
 	mkdir -p build/kernel/debugging
 	mkdir -p build/kernel/pic
 	mkdir -p build/kernel/io
+	mkdir -p build/kernel/pit
 
 	# Assemble the boot file and ISR stubs
 	i686-elf-as bootloader/boot.s -o build/bootloader/boot.o
@@ -19,6 +20,7 @@ all:
 	i686-elf-gcc -c kernel/isr/isr.c -o build/kernel/isr/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/pic/pic.c -o build/kernel/pic/pic.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/io/io.c -o build/kernel/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c kernel/pit/pit.c -o build/kernel/pit/pit.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
 	i686-elf-gcc -T linker.ld -o build/ErisOS.bin -ffreestanding -O2 -nostdlib \
@@ -31,6 +33,7 @@ all:
 		build/kernel/isr/isr_stubs.o \
 		build/kernel/pic/pic.o \
 		build/kernel/io/io.o \
+		build/kernel/pit/pit.o \
 		-lgcc
 
 	# Validate multiboot
