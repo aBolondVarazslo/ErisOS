@@ -14,8 +14,6 @@ typedef struct __attribute__((packed)) {
     uint32_t eip;
     uint32_t cs;
     uint32_t eflags;
-    uint32_t esp;
-    uint32_t ss;
 } interrupt_stack_frame_t;
 
 /* Strings to be displayed during interrupt handler */
