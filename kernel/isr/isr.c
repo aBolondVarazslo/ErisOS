@@ -1,6 +1,5 @@
 #include "isr.h"
 #include "../terminal.h"
-#include "../vga.h"
 
 /* C handlers */
 void isr_debug_exception(void) {
