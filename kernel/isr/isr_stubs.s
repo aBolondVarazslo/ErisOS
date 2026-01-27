@@ -249,79 +249,89 @@ isr21_stub:
 .global isr22_stub
 .type isr22_stub, @function
 isr22_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 22
     call isr_common_handler
 
 .global isr23_stub
 .type isr23_stub, @function
 isr23_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 23
     call isr_common_handler
 
 .global isr24_stub
 .type isr24_stub, @function
 isr24_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 24
     call isr_common_handler
 
 .global isr25_stub
 .type isr25_stub, @function
 isr25_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 25
     call isr_common_handler
 
 .global isr26_stub
 .type isr26_stub, @function
 isr26_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 26
     call isr_common_handler
 
 .global isr27_stub
 .type isr27_stub, @function
 isr27_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 27
     call isr_common_handler
 
 .global isr28_stub
 .type isr28_stub, @function
 isr28_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 28
     call isr_common_handler
 
 .global isr29_stub
 .type isr29_stub, @function
 isr29_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 29
     call isr_common_handler
 
 .global isr30_stub
 .type isr30_stub, @function
 isr30_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 30
     call isr_common_handler
 
 .global isr31_stub
 .type isr31_stub, @function
 isr31_stub:
-    lea eax, [esp]
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 31
     call isr_common_handler
