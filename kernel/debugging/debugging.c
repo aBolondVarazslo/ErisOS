@@ -18,7 +18,7 @@ void trigger_debug_exception(void) {
                  "or $0x100, %%eax\n\t"
                  "push %%eax\n\t"
                  "popf\n\t"
-                 "nop\n\t"
+
                  "pushf\n\t"
                  "pop %%eax\n\t"
                  "and $~0x100, %%eax\n\t"
