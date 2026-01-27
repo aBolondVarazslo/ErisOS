@@ -23,3 +23,32 @@ static inline void io_wait(void) {
     /* Ouput to port 0x80 is used as tiny delay */
     asm volatile("outb %%al, $0x80" : : "a"(0));
 }
+
+void PIC_remap(uint8_t offset1, uint8_t offset2) {
+    /* Start initialisation in cascade mode, and tell PICs ICW4 will be present */
+    outb(PIC1_COMMAND, ICW1_INIT | ICW1_ICW4);
+    io_wait();
+    outb(PIC2_COMMAND, ICW1_INIT | ICW1_ICW4);
+
+    /* Set vector offsets */
+    outb(PIC1_DATA, offset1);
+    io_wait();
+    outb(PIC2_DATA, offset1);
+    io_wait();
+
+    /* ICW3: Tell master/slave about cascade */
+    outb(PIC1_DATA, 1 << CASCADE_IRQ);
+    io_wait();
+    outb(PIC2_DATA, CASCADE_IRQ);
+    io_wait();
+
+    /* ICW4: Set 8086/88 mode */
+    outb(PIC1_DATA, ICW4_8086);
+    io_wait();
+    outb(PIC2_DATA, ICW4_8086);
+    io_wait();
+
+    /* Unmask all IRQs */
+    outb(PIC1_DATA, 0x00);
+    outb(PIC2_DATA, 0x00);
+}
