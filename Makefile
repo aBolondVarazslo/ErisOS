@@ -4,8 +4,9 @@ all:
 	mkdir -p build/kernel/idt
 	mkdir -p build/kernel/isr
 	mkdir -p build/kernel/debugging
+	mkdir -p build/kernel/pic
 
-	# Assemble the bootloader
+	# Assemble the boot file and ISR stubs
 	i686-elf-as bootloader/boot.s -o build/bootloader/boot.o
 	i686-elf-as kernel/isr/isr_stubs.s -o build/kernel/isr/isr_stubs.o
 
@@ -15,6 +16,7 @@ all:
 	i686-elf-gcc -c kernel/debugging/debugging.c -o build/kernel/debugging/debugging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/idt/idt.c -o build/kernel/idt/idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/isr/isr.c -o build/kernel/isr/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c kernel/pic/pic.c -o build/kernel/pic/pic.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
 	i686-elf-gcc -T linker.ld -o build/ErisOS.bin -ffreestanding -O2 -nostdlib \
@@ -25,6 +27,7 @@ all:
 		build/kernel/idt/idt.o \
 		build/kernel/isr/isr.o \
 		build/kernel/isr/isr_stubs.o \
+		build/kernel/pic/pic.o
 		-lgcc
 
 	# Validate multiboot
@@ -35,10 +38,6 @@ all:
 	cp build/ErisOS.bin isodir/boot/ErisOS.bin
 	cp grub/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o ErisOS.iso isodir
-
-	# Clean up intermediate files
-	rm -rf build/
-	rm -rf isodir/
 
 clean:
 	rm -rf build/
