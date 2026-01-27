@@ -3,7 +3,7 @@
 .intel_syntax noprefix
 .code32
 
-/* Debug exception */
+/* Debug Exception (0x01) */
 .global isr_debug_exception_stub
 .type isr_debug_exception_stub, @function
 isr_debug_exception_stub:
@@ -30,8 +30,7 @@ isr_debug_exception_stub:
     sti
     iretd
 
-
-/* Breakpoint */
+/* Breakpoint (0x03) */
 .global isr_breakpoint_stub
 .type isr_breakpoint_stub, @function
 isr_breakpoint_stub:
@@ -131,7 +130,7 @@ isr9_stub:
     push 9
     call isr_common_handler
 
-/* Invalid TSS (0x10) */
+/* Invalid TSS (0x0A) */
 .global isr10_stub
 .type isr10_stub, @function
 isr10_stub:
@@ -140,7 +139,7 @@ isr10_stub:
     push 10
     call isr_common_handler
 
-/* Segment Not Present (0x11) */
+/* Segment Not Present (0x0B) */
 .global isr11_stub
 .type isr11_stub, @function
 isr11_stub:
@@ -149,7 +148,7 @@ isr11_stub:
     push 11
     call isr_common_handler
 
-/* Stack-Segment Fault (0x12) */
+/* Stack-Segment Fault (0x0C) */
 .global isr12_stub
 .type isr12_stub, @function
 isr12_stub:
@@ -158,7 +157,7 @@ isr12_stub:
     push 12
     call isr_common_handler
 
-/* General Protection Fault (0x13) */
+/* General Protection Fault (0x0D) */
 .global isr13_stub
 .type isr13_stub, @function
 isr13_stub:
@@ -167,7 +166,7 @@ isr13_stub:
     push 13
     call isr_common_handler
 
-/* Page Fault (0x14) */
+/* Page Fault (0x0E) */
 .global isr14_stub
 .type isr14_stub, @function
 isr14_stub:
@@ -176,7 +175,7 @@ isr14_stub:
     push 14
     call isr_common_handler
 
-/* Reserved (0x15) */
+/* Reserved (0x0F) */
 .global isr15_stub
 .type isr15_stub, @function
 isr15_stub:
@@ -186,7 +185,7 @@ isr15_stub:
     push 15
     call isr_common_handler
 
-/* x87 Floating-Point Error (0x16) */
+/* x87 Floating-Point Error (0x10) */
 .global isr16_stub
 .type isr16_stub, @function
 isr16_stub:
@@ -196,7 +195,7 @@ isr16_stub:
     push 16
     call isr_common_handler
 
-/* Alignment Check (0x17) */
+/* Alignment Check (0x11) */
 .global isr17_stub
 .type isr17_stub, @function
 isr17_stub:
@@ -205,7 +204,7 @@ isr17_stub:
     push 17
     call isr_common_handler
 
-/* Machine Check (0x18) */
+/* Machine Check (0x12) */
 .global isr18_stub
 .type isr18_stub, @function
 isr18_stub:
@@ -215,7 +214,7 @@ isr18_stub:
     push 18
     call isr_common_handler
 
-/* SIMD Floating-Point Exception (0x19) */
+/* SIMD Floating-Point Exception (0x13) */
 .global isr19_stub
 .type isr19_stub, @function
 isr19_stub:
@@ -225,7 +224,7 @@ isr19_stub:
     push 19
     call isr_common_handler
 
-/* Virtualization Exception (0x20) */
+/* Virtualization Exception (0x14) */
 .global isr20_stub
 .type isr20_stub, @function
 isr20_stub:
@@ -235,7 +234,7 @@ isr20_stub:
     push 20
     call isr_common_handler
 
-/* Control Protection Exception (0x21) */
+/* Control Protection Exception (0x15) */
 .global isr21_stub
 .type isr21_stub, @function
 isr21_stub:
@@ -245,7 +244,7 @@ isr21_stub:
     push 21
     call isr_common_handler
 
-/* Reserved (0x22–0x31) */
+/* Reserved (0x16–0x1F) */
 .global isr22_stub
 .type isr22_stub, @function
 isr22_stub:

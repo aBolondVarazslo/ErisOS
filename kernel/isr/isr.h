@@ -17,8 +17,7 @@ typedef struct __attribute__((packed)) {
 } interrupt_stack_frame_t;
 
 /* Strings to be displayed during interrupt handler */
-static const char *interrupt_messages[32] =
-{
+const char *interrupt_messages[32] = {
     "Divide Error",                     /* 0x00 */
     "Debug Exception",                  /* 0x01 */
     "Non-Maskable Interrupt",           /* 0x02 */
@@ -29,28 +28,28 @@ static const char *interrupt_messages[32] =
     "Device Not Available",             /* 0x07 */
     "Double Fault",                     /* 0x08 */
     "Coprocessor Segment Overrun",      /* 0x09 */
-    "Invalid TSS",                      /* 0x10 */
-    "Segment Not Present",              /* 0x11 */
-    "Stack-Segment Fault",              /* 0x12 */
-    "General Protection Fault",         /* 0x13 */
-    "Page Fault",                       /* 0x14 */
-    "Reserved",                         /* 0x15 */
-    "x87 Floating-Point Error",         /* 0x16 */
-    "Alignment Check",                  /* 0x17 */
-    "Machine Check",                    /* 0x18 */
-    "SIMD Floating-Point Error",        /* 0x19 */
-    "Virtualisation Exception",         /* 0x20 */
-    "Control Protection Exception",     /* 0x21 */
-    "Hypervisor Injection Exception",   /* 0x22 */
-    "VMM Communication Exception",      /* 0x23 */
-    "Security Exception",               /* 0x24 */
-    "Reserved",                         /* 0x25 */
-    "Reserved",                         /* 0x26 */
-    "Reserved",                         /* 0x27 */
-    "Reserved",                         /* 0x28 */
-    "Reserved",                         /* 0x29 */
-    "Reserved",                         /* 0x30 */
-    "Reserved",                         /* 0x31 */
+    "Invalid TSS",                      /* 0x0A */
+    "Segment Not Present",              /* 0x0B */
+    "Stack-Segment Fault",              /* 0x0C */
+    "General Protection Fault",         /* 0x0D */
+    "Page Fault",                       /* 0x0E */
+    "Reserved",                         /* 0x0F */
+    "x87 Floating-Point Error",         /* 0x10 */
+    "Alignment Check",                  /* 0x11 */
+    "Machine Check",                    /* 0x12 */
+    "SIMD Floating-Point Exception",    /* 0x13 */
+    "Virtualisation Exception",         /* 0x14 */
+    "Control Protection Exception",     /* 0x15 */
+    "Reserved",                         /* 0x16 */
+    "Reserved",                         /* 0x17 */
+    "Reserved",                         /* 0x18 */
+    "Reserved",                         /* 0x19 */
+    "Reserved",                         /* 0x1A */
+    "Reserved",                         /* 0x1B */
+    "Reserved",                         /* 0x1C */
+    "Reserved",                         /* 0x1D */
+    "Reserved",                         /* 0x1E */
+    "Reserved"                          /* 0x1F */
 };
 
 /* Assembly stubs that IDT uses */
