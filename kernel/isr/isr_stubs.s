@@ -56,9 +56,9 @@ isr_breakpoint_stub:
 .global isr0_stub
 .type isr0_stub, @function
 isr0_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 0
     call isr_common_handler
 
@@ -66,29 +66,29 @@ isr0_stub:
 .global isr2_stub
 .type isr2_stub, @function
 isr2_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 2
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Overflow (0x04) */
 .global isr4_stub
 .type isr4_stub, @function
 isr4_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 4
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* BOUND Range Exceeded (0x05) */
 .global isr5_stub
 .type isr5_stub, @function
 isr5_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 5
     call isr_common_handler
 
@@ -96,21 +96,21 @@ isr5_stub:
 .global isr6_stub
 .type isr6_stub, @function
 isr6_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 6
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Device Not Available (0x07) */
 .global isr7_stub
 .type isr7_stub, @function
 isr7_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 7
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Double Fault (0x08) */
 .global isr8_stub
@@ -118,17 +118,17 @@ isr7_stub:
 isr8_stub:
     push 0
     push 8
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Coprocessor Segment Overrun (0x09) */
 .global isr9_stub
 .type isr9_stub, @function
 isr9_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 9
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Invalid TSS (0x10) */
 .global isr10_stub
@@ -136,7 +136,7 @@ isr9_stub:
 isr10_stub:
     push 0
     push 10
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Segment Not Present (0x11) */
 .global isr11_stub
@@ -144,7 +144,7 @@ isr10_stub:
 isr11_stub:
     push 0
     push 11
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Stack-Segment Fault (0x12) */
 .global isr12_stub
@@ -152,7 +152,7 @@ isr11_stub:
 isr12_stub:
     push 0
     push 12
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* General Protection Fault (0x13) */
 .global isr13_stub
@@ -160,7 +160,7 @@ isr12_stub:
 isr13_stub:
     push 0
     push 13
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Page Fault (0x14) */
 .global isr14_stub
@@ -168,27 +168,27 @@ isr13_stub:
 isr14_stub:
     push 0
     push 14
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Reserved (0x15) */
 .global isr15_stub
 .type isr15_stub, @function
 isr15_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 15
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* x87 Floating-Point Error (0x16) */
 .global isr16_stub
 .type isr16_stub, @function
 isr16_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 16
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Alignment Check (0x17) */
 .global isr17_stub
@@ -196,47 +196,47 @@ isr16_stub:
 isr17_stub:
     push 0
     push 17
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Machine Check (0x18) */
 .global isr18_stub
 .type isr18_stub, @function
 isr18_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 18
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* SIMD Floating-Point Exception (0x19) */
 .global isr19_stub
 .type isr19_stub, @function
 isr19_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 19
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Virtualization Exception (0x20) */
 .global isr20_stub
 .type isr20_stub, @function
 isr20_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 20
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Control Protection Exception (0x21) */
 .global isr21_stub
 .type isr21_stub, @function
 isr21_stub:
-    lea eax, [esp]
-    push eax
     push 0
+    lea eax, [esp + 4]
+    push eax
     push 21
-    jmp isr_common_stub
+    call isr_common_handler
 
 /* Reserved (0x22–0x31) */
 .global isr22_stub
@@ -245,7 +245,7 @@ isr22_stub:
     lea eax, [esp]
     push 0
     push 22
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr23_stub
 .type isr23_stub, @function
@@ -253,7 +253,7 @@ isr23_stub:
     lea eax, [esp]
     push 0
     push 23
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr24_stub
 .type isr24_stub, @function
@@ -261,7 +261,7 @@ isr24_stub:
     lea eax, [esp]
     push 0
     push 24
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr25_stub
 .type isr25_stub, @function
@@ -269,7 +269,7 @@ isr25_stub:
     lea eax, [esp]
     push 0
     push 25
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr26_stub
 .type isr26_stub, @function
@@ -277,7 +277,7 @@ isr26_stub:
     lea eax, [esp]
     push 0
     push 26
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr27_stub
 .type isr27_stub, @function
@@ -285,7 +285,7 @@ isr27_stub:
     lea eax, [esp]
     push 0
     push 27
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr28_stub
 .type isr28_stub, @function
@@ -293,7 +293,7 @@ isr28_stub:
     lea eax, [esp]
     push 0
     push 28
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr29_stub
 .type isr29_stub, @function
@@ -301,7 +301,7 @@ isr29_stub:
     lea eax, [esp]
     push 0
     push 29
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr30_stub
 .type isr30_stub, @function
@@ -309,7 +309,7 @@ isr30_stub:
     lea eax, [esp]
     push 0
     push 30
-    jmp isr_common_stub
+    call isr_common_handler
 
 .global isr31_stub
 .type isr31_stub, @function
@@ -317,4 +317,4 @@ isr31_stub:
     lea eax, [esp]
     push 0
     push 31
-    jmp isr_common_stub
+    call isr_common_handler
