@@ -39,3 +39,20 @@ void PIC_set_mask(uint8_t mask1, uint8_t mask2) {
 
     terminal_writeString("PIC masked", STATUS_SUCCESS);
 }
+
+/* Helper to read OCW3 from both PICs */
+static uint16_t __pic__get__irq__reg(uint8_t ocw3) {
+    outb(PIC1_COMMAND, ocw3);   /* Send command to master */
+    outb(PIC2_COMMAND, ocw3);   /* Send command to slave */
+    return (inb(PIC2_COMMAND) << 8) | inb(PIC1_COMMAND);
+}
+
+/* Get the combined value of the cascaded PICs' IRR */
+uint16_t pic_get_irr(void) {
+    return __pic__get__irq__reg(PIC_READ_IRR);
+}
+
+/* Get the combined value of the cascaded PICs' ISR */
+uint16_t pic_get_isr(void) {
+    return __pic__get__irq__reg(PIC_READ_ISR);
+}

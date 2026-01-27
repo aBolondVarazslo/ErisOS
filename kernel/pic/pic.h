@@ -30,7 +30,12 @@
 
 #define CASCADE_IRQ     2
 
+#define PIC_READ_IRR    0x0A    /* OCW3 IRQ ready next CMD read */
+#define PIC_READ_ISR    0x0B    /* OCW3 IRQ service next CMD read */
+
 void PIC_remap(uint8_t offset1, uint8_t offset2);
 void PIC_set_mask(uint8_t mask1, uint8_t mask2);
+uint16_t pic_get_irr(void);
+uint16_t pic_get_isr(void);
 
 #endif
