@@ -30,14 +30,14 @@ void PIC_remap(uint8_t offset1, uint8_t offset2) {
     outb(PIC1_DATA, 0x00);
     outb(PIC2_DATA, 0x00);
 
-    terminal_writeString("PIC Remapped", STATUS_SUCCESS);
+    terminal_writeString("PIC Remapped\n", STATUS_SUCCESS);
 }
 
 void PIC_set_mask(uint8_t mask1, uint8_t mask2) {
     outb(PIC1_DATA, mask1);
     outb(PIC2_DATA, mask2);
 
-    terminal_writeString("PIC masked", STATUS_SUCCESS);
+    terminal_writeString("PIC Masked\n", STATUS_SUCCESS);
 }
 
 /* Helper to read OCW3 from both PICs */
