@@ -12,6 +12,7 @@ void kernel_main(void) {
     idt_init();
 
     terminal_writeString("\nUpdate: 2025/01/27 @ 16:40\n", STATUS_DEBUG);
+    terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
 
     while (1);
 }
