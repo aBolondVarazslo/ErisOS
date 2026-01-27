@@ -17,7 +17,7 @@ typedef struct __attribute__((packed)) {
 } interrupt_stack_frame_t;
 
 /* Strings to be displayed during interrupt handler */
-const char *interrupt_messages[32] = {
+static const char *interrupt_messages[32] = {
     "Divide Error",                     /* 0x00 */
     "Debug Exception",                  /* 0x01 */
     "Non-Maskable Interrupt",           /* 0x02 */
