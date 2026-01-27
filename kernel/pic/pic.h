@@ -1,5 +1,6 @@
 #ifndef PIC_H
 #define PIC_H
+#include <stdint.h>
 
 /* SOURCE: https://wiki.osdev.org/8259_PIC#Initialisation */
 
@@ -28,7 +29,7 @@
 
 #define CASCADE_IRQ     2
 
-void PIC_remap();
-void PIC_set_mask();
+void PIC_remap(uint8_t offset1, uint8_t offset2);
+void PIC_set_mask(uint8_t mask1, uint8_t mask2);
 
 #endif

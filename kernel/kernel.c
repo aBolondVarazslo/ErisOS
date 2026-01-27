@@ -13,7 +13,7 @@ void kernel_main(void) {
     idt_init();
 
     /* Remap PIC */
-    PIC_remap();
+    PIC_remap(0x20, 0x28);
     PIC_set_mask(0xFE, 0xFF);
 
     terminal_writeString("\nUpdate: 2025/01/27 @ 16:40\n", STATUS_DEBUG);
