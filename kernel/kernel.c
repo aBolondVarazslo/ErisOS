@@ -14,6 +14,7 @@ void kernel_main(void) {
 
     /* Remap PIC */
     PIC_remap();
+    PIC_set_mask(0xFE, 0xFF);
 
     terminal_writeString("\nUpdate: 2025/01/27 @ 16:40\n", STATUS_DEBUG);
     terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
