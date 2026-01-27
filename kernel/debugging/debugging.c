@@ -60,3 +60,16 @@ void trigger_bound_range_exception(void) {
 void trigger_invalid_opcode(void) {
     asm volatile("ud2");
 }
+
+/* 0x0D */
+void trigger_general_protection(void) {
+    asm volatile(
+        "movw $0x1234, %%ax\n\t"  /* invalid segment selector */
+        "movw %%ax, %%ss\n\t"     /* will trigger #GP */
+        :
+        :
+        : "ax"
+    );
+
+    while (1);  /* Halt if the handler returns (it shouldn't) */
+}

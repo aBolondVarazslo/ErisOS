@@ -9,5 +9,6 @@ void trigger_breakpoint(void);            /* Breakpoint (0x03) */
 void trigger_overflow(void);              /* Overflow (0x04) */
 void trigger_bound_range_exception(void); /* Bound range exception (0x05) */
 void trigger_invalid_opcode(void);        /* Invalid opcode (0x06) */
+void trigger_general_protection(void);          /* Double fault (0x08) */
 
 #endif
