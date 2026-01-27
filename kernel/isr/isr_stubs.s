@@ -116,7 +116,8 @@ isr7_stub:
 .global isr8_stub
 .type isr8_stub, @function
 isr8_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 8
     call isr_common_handler
 
@@ -134,7 +135,8 @@ isr9_stub:
 .global isr10_stub
 .type isr10_stub, @function
 isr10_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 10
     call isr_common_handler
 
@@ -142,7 +144,8 @@ isr10_stub:
 .global isr11_stub
 .type isr11_stub, @function
 isr11_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 11
     call isr_common_handler
 
@@ -150,7 +153,8 @@ isr11_stub:
 .global isr12_stub
 .type isr12_stub, @function
 isr12_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 12
     call isr_common_handler
 
@@ -158,7 +162,8 @@ isr12_stub:
 .global isr13_stub
 .type isr13_stub, @function
 isr13_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 13
     call isr_common_handler
 
@@ -166,7 +171,8 @@ isr13_stub:
 .global isr14_stub
 .type isr14_stub, @function
 isr14_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 14
     call isr_common_handler
 
@@ -194,7 +200,8 @@ isr16_stub:
 .global isr17_stub
 .type isr17_stub, @function
 isr17_stub:
-    push 0
+    lea eax, [esp + 4]
+    push eax
     push 17
     call isr_common_handler
 
