@@ -1,6 +1,7 @@
 #include "idt.h"
 #include "../terminal.h"
 #include "../isr/isr.h"
+#include "../irq/irq.h"
 
 /* IDT */
 struct IDTEntry idt[256];
@@ -26,6 +27,11 @@ void idt_init(void) {
     /* Loop through CPU exceptions and set IDT entries */
     for (int i = 0; i < 32; i++) {
         set_idt_entry(i, (uint32_t)isr_stubs[i], cs16, IDT_FLAG_KERNEL_INTERRUPT);
+    }
+
+    /* Loop through IRQ to set IDT entries */
+    for (int i = 0; i < 16; i++) {
+        set_idt_entry(0x20 + i, (uint32_t)irq_stubs[i], cs16, IDT_FLAG_KERNEL_INTERRUPT);
     }
 
     /* Load IDT */
