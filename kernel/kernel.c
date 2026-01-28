@@ -19,7 +19,7 @@ void kernel_main(void) {
 
     /* Initialise PIT (IRQ0) */
     pit_init(100);
-    asm volatile("sti");
+    //asm volatile("sti");
 
     terminal_writeString("\nUpdate: 2025/01/27 @ 16:40\n", STATUS_DEBUG);
     terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
