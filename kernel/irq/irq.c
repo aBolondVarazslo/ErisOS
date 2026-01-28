@@ -1,12 +1,8 @@
 #include "irq.h"
-#include "../isr/isr.h"
 #include "../pic/pic.h"
 #include "../terminal.h"
 
-void irq_common_handler(uint32_t int_no, interrupt_stack_frame_t *frame, uint32_t err_code) {
-    (void)frame;
-    (void)err_code;
-
+void irq_common_handler(uint32_t int_no) {
     uint32_t irq = int_no - 0x20;   /* Convert vector number to IRQ number */
 
     terminal_writeString("IRQ ", STATUS_DEBUG);
