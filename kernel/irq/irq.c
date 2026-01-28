@@ -1,4 +1,24 @@
 #include "irq.h"
+#include "../isr/isr.h"
+#include "../pic/pic.h"
+#include "../terminal.h"
+
+void irq_common_handler(uint32_t int_no, interrupt_stack_frame_t *frame, uint32_t err_code) {
+    (void)frame;
+    (void)err_code;
+
+    uint32_t irq = int_no - 0x20;   /* Convert vector number to IRQ number */
+
+    terminal_writeString("IRQ ", STATUS_DEBUG);
+    terminal_writeHex(irq);
+    terminal_writeString(" fired\n", STATUS_DEBUG);
+
+    /* Send End Of Interrupt */
+    if (irq >= 8) {
+        outb(PIC2_COMMAND, PIC_EOI);
+    }
+    outb(PIC1_COMMAND, PIC_EOI);
+}
 
 /* Array of IRQ assembly stubs */
 void (*irq_stubs[16])(void) = {
