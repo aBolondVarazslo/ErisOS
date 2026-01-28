@@ -9,9 +9,10 @@ all:
 	mkdir -p build/kernel/pit
 	mkdir -p build/kernel/io
 
-	# Assemble the boot file and ISR stubs
+	# Assemble the boot file and stubs
 	i686-elf-as bootloader/boot.s -o build/bootloader/boot.o
 	i686-elf-as kernel/isr/isr_stubs.s -o build/kernel/isr/isr_stubs.o
+	i686-elf-as kernel/irq/irq_stubs.s -o build/kernel/irq/irq_stubs.o
 
 	# Compile kernel source files
 	i686-elf-gcc -c kernel/kernel.c -o build/kernel/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
@@ -32,8 +33,9 @@ all:
 		build/kernel/debugging/debugging.o \
 		build/kernel/idt/idt.o \
 		build/kernel/isr/isr.o \
-		build/kernel/irq/irq.o \
 		build/kernel/isr/isr_stubs.o \
+		build/kernel/irq/irq.o \
+		build/kernel/irq/irq_stubs.o \
 		build/kernel/pic/pic.o \
 		build/kernel/pit/pit.o \
 		build/kernel/io/io.o \
