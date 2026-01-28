@@ -1,6 +1,8 @@
 #ifndef IRQ_H
 #define IRQ_H
 
+#include <stdint.h>
+
 void (*irq_stubs[16])(void);
 
 extern void irq0_stub(void);
