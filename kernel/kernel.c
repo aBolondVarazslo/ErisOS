@@ -19,8 +19,10 @@ void kernel_main(void) {
 
     /* Initialise PIT (IRQ0) */
     pit_init(100);
+    asm volatile("sti");
+    terminal_writeString("Interrupts Enabled\n", STATUS_SUCCESS);
 
-    terminal_writeString("\nUpdate: 2025/01/27 @ 16:40\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2025/03/22 @ 22:10\n", STATUS_DEBUG);
     terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
 
     while (1);
