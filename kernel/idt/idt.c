@@ -31,7 +31,7 @@ void idt_init(void) {
 
     /* Loop through IRQ to set IDT entries */
     for (int i = 0; i < 16; i++) {
-        set_idt_entry(0x20 + i, (uint32_t)irq_stubs[i], cs16, IDT_FLAG_KERNEL_INTERRUPT);
+        set_idt_entry(0x20 + i, (uint32_t)irq_stubs[i], cs16, 0x8E);
     }
 
     /* Load IDT */

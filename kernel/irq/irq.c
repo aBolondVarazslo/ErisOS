@@ -3,14 +3,14 @@
 #include "../terminal.h"
 
 void irq_common_handler(uint32_t int_no) {
-    uint32_t irq = int_no - 0x20;   /* Convert vector number to IRQ number */
+    //uint32_t irq = int_no - 0x20;   /* Convert vector number to IRQ number */
 
-    terminal_writeString("IRQ ", STATUS_DEBUG);
-    terminal_writeHex(irq);
-    terminal_writeString(" fired\n", STATUS_DEBUG);
+    //terminal_writeString("IRQ ", STATUS_DEBUG);
+    //terminal_writeHex(irq);
+    //terminal_writeString(" fired\n", STATUS_DEBUG);
 
     /* Send End Of Interrupt */
-    if (irq >= 8) {
+    if (int_no - 0x20 >= 8) {
         outb(PIC2_COMMAND, PIC_EOI);
     }
     outb(PIC1_COMMAND, PIC_EOI);
