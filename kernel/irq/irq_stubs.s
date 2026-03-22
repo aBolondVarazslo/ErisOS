@@ -7,11 +7,22 @@
 .global irq0_stub
 .type irq0_stub, @function
 irq0_stub:
-    push 0
-    lea eax, [esp + 4]
-    push eax
-    push 32
+    pushad
+    push ds
+    push es
+    push fs
+    push gs
+
+    push 0x20
     call irq_common_handler
+    add esp, 4
+
+    pop gs
+    pop fs
+    pop es
+    pop ds
+    popad
+    iret
 
 /* IRQ1 – Keyboard (0x21) */
 .global irq1_stub
