@@ -1,4 +1,5 @@
 #include "terminal.h"
+#include "gdt/gdt.h"
 #include "idt/idt.h"
 #include "debugging/debugging.h"
 #include "pic/pic.h"
@@ -9,6 +10,9 @@ void kernel_main(void) {
     terminal_initialise();
 
     terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
+
+    /* Setup GDT */
+    gdt_init();
 
     /* Load IDT */
     idt_init();
