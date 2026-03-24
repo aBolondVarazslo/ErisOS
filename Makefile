@@ -12,6 +12,7 @@ all:
 
 	# Assemble the boot file and stubs
 	i686-elf-as bootloader/boot.s -o build/bootloader/boot.o
+	i686-elf-as kernel/gdt/gdt.s -o build/kernel/gdt/gdt.o
 	i686-elf-as kernel/isr/isr_stubs.s -o build/kernel/isr/isr_stubs.o
 	i686-elf-as kernel/irq/irq_stubs.s -o build/kernel/irq/irq_stubs.o
 
@@ -19,7 +20,7 @@ all:
 	i686-elf-gcc -c kernel/kernel.c -o build/kernel/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/terminal.c -o build/kernel/terminal.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/debugging/debugging.c -o build/kernel/debugging/debugging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/gdt/gdt.c -o build/kernel/gdt/gdt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	#i686-elf-gcc -c kernel/gdt/gdt.c -o build/kernel/gdt/gdt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/idt/idt.c -o build/kernel/idt/idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/isr/isr.c -o build/kernel/isr/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/irq/irq.c -o build/kernel/irq/irq.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
