@@ -40,14 +40,15 @@ void gdt_init(void) {
 
     /* Far jump to reload CS with new code selector (0x08) */
     asm volatile(
-        "jmp 0x08:.flush\n"
-        ".flush\n"
-        "mov $0x10, %ax\n"
-        "mov %ax, %ds\n"
-        "mov %ax, %es\n"
-        "mov %ax, %fs\n"
-        "mov %ax, %gs\n"
-        "mov %ax, %ss\n"
+        "jmp $0x08, $.flush\n\t"
+        ".flush:\n\t"
+        "mov $0x10, %%ax\n\t"
+        "mov %%ax, %%ds\n\t"
+        "mov %%ax, %%es\n\t"
+        "mov %%ax, %%fs\n\t"
+        "mov %%ax, %%gs\n\t"
+        "mov %%ax, %%ss\n\t"
+        ::: "ax", "memory"
     );
 
     terminal_writeString("GDT Loaded\n", STATUS_SUCCESS);    
