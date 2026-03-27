@@ -11,6 +11,9 @@ void kernel_main(void) {
 
     terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
 
+    /* Prevent GDT OK message from being overwritten by IDT Initialised message */
+    terminal_writeString("\n", STATUS_DEBUG);
+
     /* Setup GDT */
     gdt_init();
 
