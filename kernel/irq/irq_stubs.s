@@ -7,11 +7,8 @@
 .global irq0_stub
 .type irq0_stub, @function
 irq0_stub:
-    mov byte ptr [0xB8000], '!'
-    mov byte ptr [0xB8001], 0x07
-    hlt
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -24,7 +21,7 @@ irq0_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ1 – Keyboard (0x21) */
@@ -32,7 +29,7 @@ irq0_stub:
 .type irq1_stub, @function
 irq1_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -45,7 +42,7 @@ irq1_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ2 – Cascade (0x22) */
@@ -53,7 +50,7 @@ irq1_stub:
 .type irq2_stub, @function
 irq2_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -66,7 +63,7 @@ irq2_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ3 – COM2 / COM4 (0x23) */
@@ -74,7 +71,7 @@ irq2_stub:
 .type irq3_stub, @function
 irq3_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -87,7 +84,7 @@ irq3_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ4 – COM1 / COM3 (0x24) */
@@ -95,7 +92,7 @@ irq3_stub:
 .type irq4_stub, @function
 irq4_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -108,7 +105,7 @@ irq4_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ5 – LPT2 / Audio / etc. (0x25) */
@@ -116,7 +113,7 @@ irq4_stub:
 .type irq5_stub, @function
 irq5_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -129,7 +126,7 @@ irq5_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ6 – Floppy (0x26) */
@@ -137,7 +134,7 @@ irq5_stub:
 .type irq6_stub, @function
 irq6_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -150,7 +147,7 @@ irq6_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ7 – LPT1 / Spurious (0x27) */
@@ -158,7 +155,7 @@ irq6_stub:
 .type irq7_stub, @function
 irq7_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -171,7 +168,7 @@ irq7_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ8 – RTC (0x28) */
@@ -179,7 +176,7 @@ irq7_stub:
 .type irq8_stub, @function
 irq8_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -192,7 +189,7 @@ irq8_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ9 – Unassigned / Redirected (0x29) */
@@ -200,7 +197,7 @@ irq8_stub:
 .type irq9_stub, @function
 irq9_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -213,7 +210,7 @@ irq9_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ10 – Unassigned (0x2A) */
@@ -221,7 +218,7 @@ irq9_stub:
 .type irq10_stub, @function
 irq10_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -234,7 +231,7 @@ irq10_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ11 – Unassigned (0x2B) */
@@ -242,7 +239,7 @@ irq10_stub:
 .type irq11_stub, @function
 irq11_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -255,7 +252,7 @@ irq11_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ12 – PS/2 Mouse (0x2C) */
@@ -263,7 +260,7 @@ irq11_stub:
 .type irq12_stub, @function
 irq12_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -276,7 +273,7 @@ irq12_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ13 – FPU exception (0x2D) */
@@ -284,7 +281,7 @@ irq12_stub:
 .type irq13_stub, @function
 irq13_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -297,7 +294,7 @@ irq13_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ14 – ATA primary (0x2E) */
@@ -305,7 +302,7 @@ irq13_stub:
 .type irq14_stub, @function
 irq14_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -318,7 +315,7 @@ irq14_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
 
 /* IRQ15 – ATA secondary (0x2F) */
@@ -326,7 +323,7 @@ irq14_stub:
 .type irq15_stub, @function
 irq15_stub:
     pushad
-	push ds
+    push ds
     push es
     push fs
     push gs
@@ -339,5 +336,5 @@ irq15_stub:
     pop fs
     pop es
     pop ds
-	popad
+    popad
     iret
