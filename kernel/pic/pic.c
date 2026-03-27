@@ -26,10 +26,6 @@ void PIC_remap(uint8_t offset1, uint8_t offset2) {
     outb(PIC2_DATA, ICW4_8086);
     io_wait();
 
-    /* Unmask all IRQs */
-    outb(PIC1_DATA, 0x00);
-    outb(PIC2_DATA, 0x00);
-
     terminal_writeString("PIC Remapped\n", STATUS_SUCCESS);
 }
 

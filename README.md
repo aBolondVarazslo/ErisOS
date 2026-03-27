@@ -49,13 +49,20 @@ To manually check if your kernel is multiboot-compliant:
 
 ---
 
-## Planned features
+## Planned Features
 
 - **Keyboard input**
 - Programmable interrupt timer (PIT)
 - Paging memory map parsing
 - Custom shell
 - Minimal filesystem support
+
+---
+
+## Branching Model
+
+- **`main`** - Stable branch. Features will be pulled from `dev` whenever they are added and at least **partly functional**, not leading to crashes.
+- **`dev`** - Development branch. All new features, experiments, etc will be developed and pushed here. Just because an update is pushed **does not mean it is stable**, or that the kernel will even boot. **If you would like to contribute, this is where you create a pull request.**
 
 ---
 

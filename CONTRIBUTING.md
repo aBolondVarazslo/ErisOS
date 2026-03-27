@@ -47,7 +47,7 @@ You can contribute by:
 1. Fork the repository
 2. Make your changes
 3. Test your changes where applicable
-4. Open a pull request
+4. Open a pull request one the `dev` branch
 
 ---
 
