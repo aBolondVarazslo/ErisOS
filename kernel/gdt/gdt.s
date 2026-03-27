@@ -29,23 +29,23 @@ gdt_init:
     /* Load GDT */
     lgdt [gdtr]
 
-    mov byte ptr [0xB8000], 'G'
-    mov byte ptr [0xB8001], 0x0F
+    mov byte ptr [0xB8000 + 160], 'G'
+    mov byte ptr [0xB8001 + 160], 0x0A
 
-    mov byte ptr [0xB8002], 'D'
-    mov byte ptr [0xB8003], 0x0F
+    mov byte ptr [0xB8002 + 160], 'D'
+    mov byte ptr [0xB8003 + 160], 0x0A
 
-    mov byte ptr [0xB8004], 'T'
-    mov byte ptr [0xB8005], 0x0F
+    mov byte ptr [0xB8004 + 160], 'T'
+    mov byte ptr [0xB8005 + 160], 0x0A
 
-    mov byte ptr [0xB8006], ' '
-    mov byte ptr [0xB8007], 0x0F
+    mov byte ptr [0xB8006 + 160], ' '
+    mov byte ptr [0xB8007 + 160], 0x0A
 
-    mov byte ptr [0xB8008], 'O'
-    mov byte ptr [0xB8009], 0x0F
+    mov byte ptr [0xB8008 + 160], 'O'
+    mov byte ptr [0xB8009 + 160], 0x0A
 
-    mov byte ptr [0xB800A], 'K'
-    mov byte ptr [0xB800B], 0x0F
+    mov byte ptr [0xB800A + 160], 'K'
+    mov byte ptr [0xB800B + 160], 0x0A
 
     /* Far jump to reload CS with selector 0x08 */
     jmp 0x08:.flush_cs
