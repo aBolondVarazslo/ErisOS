@@ -4,6 +4,7 @@
 #include "debugging/debugging.h"
 #include "pic/pic.h"
 #include "pit/pit.h"
+#include "irq/irq.h"
 
 void kernel_main(void) {
     /* Initialise terminal interface */
@@ -19,6 +20,13 @@ void kernel_main(void) {
 
     /* Load IDT */
     idt_init();
+
+    set_idt_entry(0x20, (uint32_t)irq0_stub, 0x08, 0x8E);
+    terminal_writeString("Forced IRQ stub\n", STATUS_DEBUG);
+
+    terminal_writeString("irq0_stub address = ", STATUS_DEBUG);
+    terminal_writeHex((uint32_t)irq0_stub);
+    terminal_writeString("\n", STATUS_DEBUG);
 
     /* Remap PIC */
     PIC_remap(0x20, 0x28);
