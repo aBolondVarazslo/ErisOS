@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-static void (*irq_stubs[16])(void);
+extern void (*irq_stubs[16])(void);
 
 extern void irq0_stub(void);
 extern void irq1_stub(void);
