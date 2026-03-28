@@ -21,7 +21,9 @@ void kernel_main(void) {
     /* Load IDT */
     idt_init();
 
-    set_idt_entry(0x20, (uint32_t)irq0_stub, 0x08, 0x8E);
+    uint16_t cs16;
+    asm volatile("mov %%cs, %0" : "=r"(cs16));
+    set_idt_entry(0x20, (uint32_t)irq0_stub, cs16, IDT_FLAG_KERNEL_INTERRUPT);
     terminal_writeString("Forced IRQ stub\n", STATUS_DEBUG);
 
     terminal_writeString("irq0_stub address = ", STATUS_DEBUG);
@@ -34,7 +36,7 @@ void kernel_main(void) {
 
     /* Initialise PIT (IRQ0) */
     pit_init(100);
-    asm volatile("sti");
+    //asm volatile("sti");
     terminal_writeString("Interrupts Enabled\n", STATUS_SUCCESS);
 
     terminal_writeString("\nUpdate: 2025/03/24 @ 20:36\n", STATUS_DEBUG);
