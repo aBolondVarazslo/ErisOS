@@ -1,6 +1,6 @@
 #include "pic.h"
 #include "../io/io.h"
-#include "../terminal.h"
+#include "../../lib/terminal.h"
 
 void PIC_remap(uint8_t offset1, uint8_t offset2) {
     /* Start initialisation in cascade mode, and tell PICs ICW4 will be present */

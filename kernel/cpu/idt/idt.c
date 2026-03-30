@@ -1,5 +1,5 @@
 #include "idt.h"
-#include "../terminal.h"
+#include "../../lib/terminal.h"
 #include "../isr/isr.h"
 #include "../irq/irq.h"
 

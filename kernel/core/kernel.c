@@ -1,10 +1,10 @@
-#include "terminal.h"
-#include "gdt/gdt.h"
-#include "idt/idt.h"
-#include "debugging/debugging.h"
-#include "pic/pic.h"
-#include "pit/pit.h"
-#include "irq/irq.h"
+#include "../lib/terminal.h"
+#include "../cpu/gdt/gdt.h"
+#include "../cpu/idt/idt.h"
+#include "../debugging/debugging.h"
+#include "../drivers/pic/pic.h"
+#include "../drivers/pit/pit.h"
+#include "../cpu/irq/irq.h"
 
 void kernel_main(void) {
     /* Initialise terminal interface */

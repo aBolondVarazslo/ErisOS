@@ -1,6 +1,6 @@
 #include "pit.h"
 #include "../io/io.h"
-#include "../terminal.h"
+#include "../../lib/terminal.h"
 
 #define PIT_CHANNEL0        0x40
 #define PIT_COMMAND         0x43

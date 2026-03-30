@@ -1,6 +1,6 @@
 #include "irq.h"
-#include "../pic/pic.h"
-#include "../terminal.h"
+#include "../../drivers/pic/pic.h"
+#include "../../lib/terminal.h"
 
 void irq_common_handler(uint32_t int_no) {
     uint32_t irq = int_no - 0x20;   /* Convert vector number to IRQ number */

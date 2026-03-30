@@ -1,5 +1,5 @@
 #include "isr.h"
-#include "../terminal.h"
+#include "../../lib/terminal.h"
 
 /* C handlers */
 void isr_debug_exception(void) {
