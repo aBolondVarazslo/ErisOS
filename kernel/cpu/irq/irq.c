@@ -5,6 +5,7 @@
 void irq_common_handler(uint32_t int_no) {
     uint32_t irq = int_no - 0x20; /* Convert vector number to IRQ number */
 
+    /* Prevents terminal from being filled with timer alerts */
     if (irq != 0) {
         terminal_writeString("IRQ ", STATUS_DEBUG);
         terminal_writeHex(irq);
