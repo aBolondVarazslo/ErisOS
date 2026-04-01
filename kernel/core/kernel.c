@@ -23,14 +23,14 @@ void kernel_main(void) {
 
     /* Remap PIC */
     PIC_remap(0x20, 0x28);
-    PIC_set_mask(0xFE, 0xFF);
+    PIC_set_mask(0x00, 0x00);
 
     /* Initialise PIT (IRQ0) */
     pit_init(100);
     asm volatile("sti");
     terminal_writeString("Interrupts Enabled\n", STATUS_SUCCESS);
 
-    terminal_writeString("\nUpdate: 2026/04/01 @ 21:13\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2026/04/01 @ 21:32\n", STATUS_DEBUG);
     terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
 
     while (1);
