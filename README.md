@@ -46,13 +46,14 @@ To manually check if your kernel is multiboot-compliant:
 - Terminal scrolling and word wrap (kind of) support
 - Interrupt descriptor table (IDT) skeleton
 - Register dumps in the case of an interrupt
+- Programmable interrupt timer (PIT)
+- Custom GDT
 
 ---
 
 ## Planned Features
 
 - **Keyboard input**
-- Programmable interrupt timer (PIT)
 - Paging memory map parsing
 - Custom shell
 - Minimal filesystem support

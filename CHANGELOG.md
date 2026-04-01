@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Initial support for IRQs, timer is working
+* Custom GDT (replaced GRUB's temporary model)
 
 ## [0.1.3] - 2026-01-27
 
