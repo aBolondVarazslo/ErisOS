@@ -36,6 +36,14 @@ void PIC_set_mask(uint8_t mask1, uint8_t mask2) {
     terminal_writeString("PIC Masked\n", STATUS_SUCCESS);
 }
 
+/* Sends EOI (End Of Interrupt) to PIC */
+void PIC_sendEOI(uint8_t irq) {
+    if (irq >= 8) {
+        outb(PIC2_COMMAND, PIC_EOI);
+    }
+    outb(PIC1_COMMAND, PIC_EOI);
+}
+
 /* Helper to read OCW3 from both PICs */
 static uint16_t __pic__get__irq__reg(uint8_t ocw3) {
     outb(PIC1_COMMAND, ocw3);   /* Send command to master */

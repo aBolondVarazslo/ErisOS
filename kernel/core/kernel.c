@@ -30,7 +30,7 @@ void kernel_main(void) {
     asm volatile("sti");
     terminal_writeString("Interrupts Enabled\n", STATUS_SUCCESS);
 
-    terminal_writeString("\nUpdate: 2025/03/31 @ 12:34\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2026/04/01 @ 21:13\n", STATUS_DEBUG);
     terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
 
     while (1);
