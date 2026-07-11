@@ -33,7 +33,7 @@ void kernel_main(void) {
 
     ps2_init();
 
-    terminal_writeString("\nUpdate: 2026/04/01 @ 21:32\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2026/07/11 @ 17:25\n", STATUS_DEBUG);
     terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
 
     while (1);
