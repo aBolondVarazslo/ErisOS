@@ -1,12 +1,16 @@
 #include "irq.h"
 #include "../../drivers/pic/pic.h"
 #include "../../lib/terminal.h"
+#include "../../drivers/ps2/ps2.h"
 
 void irq_common_handler(uint32_t int_no) {
     uint32_t irq = int_no - 0x20; /* Convert vector number to IRQ number */
 
     /* Prevents terminal from being filled with timer alerts */
-    if (irq != 0) {
+    if (irq == 1) {
+        ps2_keyboard_handler();
+        return;
+    } else if (irq != 0) {
         terminal_writeString("IRQ ", STATUS_DEBUG);
         terminal_writeHex(irq);
         terminal_writeString(" fired\n", STATUS_DEBUG);

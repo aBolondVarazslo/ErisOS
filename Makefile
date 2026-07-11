@@ -9,6 +9,7 @@ all:
 	mkdir -p build/kernel/debugging
 	mkdir -p build/kernel/drivers/pic
 	mkdir -p build/kernel/drivers/pit
+	mkdir -p build/kernel/drivers/ps2
 	mkdir -p build/kernel/drivers/io
 	mkdir -p build/kernel/lib
 
@@ -28,6 +29,7 @@ all:
 	i686-elf-gcc -c kernel/cpu/irq/irq.c -o build/kernel/cpu/irq/irq.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/drivers/pic/pic.c -o build/kernel/drivers/pic/pic.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/drivers/pit/pit.c -o build/kernel/drivers/pit/pit.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c kernel/drivers/ps2/ps2.c -o build/kernel/drivers/ps2/ps2.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c kernel/drivers/io/io.c -o build/kernel/drivers/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
@@ -44,6 +46,7 @@ all:
 		build/kernel/cpu/irq/irq_stubs.o \
 		build/kernel/drivers/pic/pic.o \
 		build/kernel/drivers/pit/pit.o \
+		build/kernel/drivers/ps2/ps2.o \
 		build/kernel/drivers/io/io.o \
 		-lgcc
 
