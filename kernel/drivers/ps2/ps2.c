@@ -91,7 +91,12 @@ void ps2_keyboard_handler(void) {
     /* Basic output */
     terminal_writeString("Scan: ", STATUS_DEBUG);
     terminal_writeHex(scancode);
-    terminal_writeString("\n", STATUS_DEBUG);
+    
+    if (scancode & 0x80) {
+        terminal_writeString(" (release)\n", STATUS_DEBUG);
+    } else {
+        terminal_writeString(" (press)\n", STATUS_DEBUG);
+    }
 
     /* Todo: put buffer and process it */
 
