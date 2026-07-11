@@ -90,7 +90,7 @@ void ps2_keyboard_handler(void) {
 
     /* Basic output */
     terminal_writeString("Scan: ", STATUS_DEBUG);
-    terminal_writeString(scancode, STATUS_DEBUG);
+    terminal_writeHex(scancode);
     terminal_writeString("\n", STATUS_DEBUG);
 
     /* Todo: put buffer and process it */
