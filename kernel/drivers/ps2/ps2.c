@@ -60,7 +60,7 @@ void ps2_init(void) {
     /* Enable IRQ1 (keyboard), disable IRQ12 (mouse) */
     config |= 0x01;  /* Enable keyboard interrupt */
     config &= ~0x02; /* Disable mouse interrupt */
-    config &= ~0x20; /* Disable translation */
+    config &= ~0x40; /* Disable translation */
 
     ps2_send_command(PS2_CMD_WRITE_CONFIG);
     ps2_send_data(config);
