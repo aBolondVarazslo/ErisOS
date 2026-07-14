@@ -12,6 +12,9 @@ static uint8_t ps2_buffer[PS2_BUFFER_SIZE];
 static uint8_t buffer_head = 0;
 static uint8_t buffer_tail = 0;
 
+static bool shift_held = false;
+static bool caps_lock_on = false;
+
 /* Unshifted keymap, indexed by Set 1 scan code */
 static const char keymap_lower[128] = {
     /* 0x00 */ 0,    27,  '1', '2', '3', '4', '5', '6',
@@ -32,7 +35,7 @@ static const char keymap_upper[128] = {
     /* 0x10 */ 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I',
     /* 0x18 */ 'O', 'P', '{', '}', '\n', 0 /* CTRL */, 'A', 'S',
     /* 0x20 */ 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':',
-    /* 0x28 */ '@', '¬', 0 /* Left shift */, '|', 'Z', 'X', 'C', 'V',
+    /* 0x28 */ '@', 0 /* ¬ (I think it's logical NOT?)*/, 0 /* Left shift */, '|', 'Z', 'X', 'C', 'V',
     /* 0x30 */ 'B', 'N', 'M', '<', '>', '?', 0 /* Right shift */, '*',
     /* 0x38 */ 0 /* alt */, ' ', 0 /* Caps lock */,
     /* Put function keys, numpad, etc here in future */
