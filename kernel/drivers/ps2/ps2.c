@@ -12,6 +12,32 @@ static uint8_t ps2_buffer[PS2_BUFFER_SIZE];
 static uint8_t buffer_head = 0;
 static uint8_t buffer_tail = 0;
 
+/* Unshifted keymap, indexed by Set 1 scan code */
+static const char keymap_lower[128] = {
+    /* 0x00 */ 0,    27,  '1', '2', '3', '4', '5', '6',
+    /* 0x08 */ '7',  '8', '9', '0', '-', '=', '\b', '\t',
+    /* 0x10 */ 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i',
+    /* 0x18 */ 'o', 'p', '[', ']', '\n', 0 /* ctrl */, 'a', 's',
+    /* 0x20 */ 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',
+    /* 0x28 */ '\'', '`', 0 /* lshift */, '\\', 'z', 'x', 'c', 'v',
+    /* 0x30 */ 'b', 'n', 'm', ',', '.', '/', 0 /* rshift */, '*',
+    /* 0x38 */ 0 /* alt */, ' ', 0 /* capslock */,
+    /* Put function keys, numpad, etc here in future */
+};
+
+/* Shifted keymap, indexed by Set 1 scan code */
+static const char keymap_upper[128] = {
+    /* 0x00 */ 0,    27,  '!', '"', '£', '$', '%', '^',
+    /* 0x08 */ '&',  '*', '(', ')', '_', '+', '\b', '\t',
+    /* 0x10 */ 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I',
+    /* 0x18 */ 'O', 'P', '{', '}', '\n', 0 /* CTRL */, 'A', 'S',
+    /* 0x20 */ 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':',
+    /* 0x28 */ '@', '¬', 0 /* Left shift */, '|', 'Z', 'X', 'C', 'V',
+    /* 0x30 */ 'B', 'N', 'M', '<', '>', '?', 0 /* Right shift */, '*',
+    /* 0x38 */ 0 /* alt */, ' ', 0 /* Caps lock */,
+    /* Put function keys, numpad, etc here in future */
+};
+
 static inline bool ps2_buffer_full(void) {
     return ((buffer_head + 1) % PS2_BUFFER_SIZE) == buffer_tail;
 }
