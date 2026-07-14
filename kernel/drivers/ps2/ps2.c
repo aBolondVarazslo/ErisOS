@@ -137,7 +137,8 @@ void ps2_keyboard_handler(void) {
             // terminal_writeString("Shift Pressed\n", STATUS_DEBUG);
             shift_held = true;
         } else if (scancode == 0x58) {
-            /* TODO: toggle caps_lock_on here, and print something to confirm it */
+            caps_lock_on = !caps_lock_on;
+            // terminal_writeString(caps_lock_on ? "Caps Lock On\n" : "Caps Lock Off\n", STATUS_DEBUG);
         } else {
             terminal_writeHex(scancode);
         }
