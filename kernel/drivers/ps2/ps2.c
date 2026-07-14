@@ -14,6 +14,7 @@ static uint8_t buffer_tail = 0;
 
 static bool shift_held = false;
 static bool caps_lock_on = false;
+static bool break_flag = false; /* true = next byte is release */
 
 /* Unshifted keymap, indexed by Set 1 scan code */
 static const char keymap_lower[128] = {
@@ -116,19 +117,31 @@ void ps2_keyboard_handler(void) {
     }
 
     uint8_t scancode = inb(PS2_DATA_PORT);
-
-    /* Basic output */
-    terminal_writeString("Scan: ", STATUS_DEBUG);
-    terminal_writeHex(scancode);
     
-    if (scancode & 0x80) {
-        terminal_writeString(" (release)\n", STATUS_DEBUG);
-    } else {
-        terminal_writeString(" (press)\n", STATUS_DEBUG);
+    if (scancode == 0xF0) {
+        break_flag = true;
+        outb(PIC1_COMMAND, PIC_EOI);
+        return; /* Wait for next interrupt */
     }
-
-    /* Todo: put buffer and process it */
-
+    
+    if (break_flag) {
+        /* This scancode is a RELEASE */
+        if (scancode == 0x12 || scancode == 0x59) {
+            // terminal_writeString("Shift Released\n", STATUS_DEBUG);
+            shift_held = false;
+        }
+        break_flag = false;
+    } else {
+        /* This scancode is a PRESS */
+        if (scancode == 0x12 || scancode == 0x59) {
+            // terminal_writeString("Shift Pressed\n", STATUS_DEBUG);
+            shift_held = true;
+        } else if (scancode == 0x58) {
+            /* TODO: toggle caps_lock_on here, and print something to confirm it */
+        } else {
+            terminal_writeHex(scancode);
+        }
+    }
     /* Send EOI */
     outb(PIC1_COMMAND, PIC_EOI);
 }
