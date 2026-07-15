@@ -16,30 +16,48 @@ static bool shift_held = false;
 static bool caps_lock_on = false;
 static bool break_flag = false; /* true = next byte is release */
 
-/* Unshifted keymap, indexed by Set 1 scan code */
+/* Unshifted keymap, indexed by Set 2 scan code */
 static const char keymap_lower[128] = {
-    /* 0x00 */ 0,    27,  '1', '2', '3', '4', '5', '6',
-    /* 0x08 */ '7',  '8', '9', '0', '-', '=', '\b', '\t',
-    /* 0x10 */ 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i',
-    /* 0x18 */ 'o', 'p', '[', ']', '\n', 0 /* ctrl */, 'a', 's',
-    /* 0x20 */ 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',
-    /* 0x28 */ '\'', '`', 0 /* lshift */, '\\', 'z', 'x', 'c', 'v',
-    /* 0x30 */ 'b', 'n', 'm', ',', '.', '/', 0 /* rshift */, '*',
-    /* 0x38 */ 0 /* alt */, ' ', 0 /* capslock */,
-    /* Put function keys, numpad, etc here in future */
+    ['\x1C'] = 'a', ['\x32'] = 'b', ['\x21'] = 'c', ['\x23'] = 'd',
+    ['\x24'] = 'e', ['\x2B'] = 'f', ['\x34'] = 'g', ['\x33'] = 'h',
+    ['\x43'] = 'i', ['\x3B'] = 'j', ['\x42'] = 'k', ['\x4B'] = 'l',
+    ['\x3A'] = 'm', ['\x31'] = 'n', ['\x44'] = 'o', ['\x4D'] = 'p',
+    ['\x15'] = 'q', ['\x2D'] = 'r', ['\x1B'] = 's', ['\x2C'] = 't',
+    ['\x3C'] = 'u', ['\x2A'] = 'v', ['\x1D'] = 'w', ['\x22'] = 'x',
+    ['\x35'] = 'y', ['\x1A'] = 'z',
+
+    ['\x45'] = '0', ['\x16'] = '1', ['\x1E'] = '2', ['\x26'] = '3',
+    ['\x25'] = '4', ['\x2E'] = '5', ['\x36'] = '6', ['\x3D'] = '7',
+    ['\x3E'] = '8', ['\x46'] = '9',
+
+    ['\x0E'] = '`', ['\x4E'] = '-', ['\x55'] = '=',
+    ['\x54'] = '[', ['\x5B'] = ']', ['\x5D'] = '\\',
+    ['\x4C'] = ';', ['\x52'] = '\'', ['\x41'] = ',',
+    ['\x49'] = '.', ['\x4A'] = '/',
+
+    ['\x29'] = ' ',  ['\x5A'] = '\n', ['\x66'] = '\b', ['\x0D'] = '\t',
 };
 
-/* Shifted keymap, indexed by Set 1 scan code */
+/* Shifted keymap, indexed by Set 2 scan code */
 static const char keymap_upper[128] = {
-    /* 0x00 */ 0,    27,  '!', '"', '£', '$', '%', '^',
-    /* 0x08 */ '&',  '*', '(', ')', '_', '+', '\b', '\t',
-    /* 0x10 */ 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I',
-    /* 0x18 */ 'O', 'P', '{', '}', '\n', 0 /* CTRL */, 'A', 'S',
-    /* 0x20 */ 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':',
-    /* 0x28 */ '@', 0 /* ¬ (I think it's logical NOT?)*/, 0 /* Left shift */, '|', 'Z', 'X', 'C', 'V',
-    /* 0x30 */ 'B', 'N', 'M', '<', '>', '?', 0 /* Right shift */, '*',
-    /* 0x38 */ 0 /* alt */, ' ', 0 /* Caps lock */,
-    /* Put function keys, numpad, etc here in future */
+    ['\x1C'] = 'A', ['\x32'] = 'B', ['\x21'] = 'C', ['\x23'] = 'D',
+    ['\x24'] = 'E', ['\x2B'] = 'F', ['\x34'] = 'G', ['\x33'] = 'H',
+    ['\x43'] = 'I', ['\x3B'] = 'J', ['\x42'] = 'K', ['\x4B'] = 'L',
+    ['\x3A'] = 'M', ['\x31'] = 'N', ['\x44'] = 'O', ['\x4D'] = 'P',
+    ['\x15'] = 'Q', ['\x2D'] = 'R', ['\x1B'] = 'S', ['\x2C'] = 'T',
+    ['\x3C'] = 'U', ['\x2A'] = 'V', ['\x1D'] = 'W', ['\x22'] = 'X',
+    ['\x35'] = 'Y', ['\x1A'] = 'Z',
+
+    ['\x45'] = ')', ['\x16'] = '!', ['\x1E'] = '"', ['\x26'] = '£',
+    ['\x25'] = '$', ['\x2E'] = '%', ['\x36'] = '^', ['\x3D'] = '&',
+    ['\x3E'] = '*', ['\x46'] = '(',
+
+    ['\x0E'] = 0,   ['\x4E'] = '_', ['\x55'] = '+',
+    ['\x54'] = '{', ['\x5B'] = '}', ['\x5D'] = '|',
+    ['\x4C'] = ':', ['\x52'] = '@', ['\x41'] = '<',
+    ['\x49'] = '>', ['\x4A'] = '?',
+
+    ['\x29'] = ' ',  ['\x5A'] = '\n', ['\x66'] = '\b', ['\x0D'] = '\t',
 };
 
 static inline bool ps2_buffer_full(void) {
@@ -141,6 +159,7 @@ void ps2_keyboard_handler(void) {
             // terminal_writeString(caps_lock_on ? "Caps Lock On\n" : "Caps Lock Off\n", STATUS_DEBUG);
         } else {
             terminal_writeHex(scancode);
+            terminal_writeString("\n", STATUS_DEBUG);
         }
     }
     /* Send EOI */
