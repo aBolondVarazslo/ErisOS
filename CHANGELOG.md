@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Initial keyboard support (scancodes only for now)
+* Keyboard support
 
 ## [0.1.4] - 2026-03-27
 
