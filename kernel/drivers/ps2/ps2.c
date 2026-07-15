@@ -48,7 +48,7 @@ static const char keymap_upper[128] = {
     ['\x3C'] = 'U', ['\x2A'] = 'V', ['\x1D'] = 'W', ['\x22'] = 'X',
     ['\x35'] = 'Y', ['\x1A'] = 'Z',
 
-    ['\x45'] = ')', ['\x16'] = '!', ['\x1E'] = '"', ['\x26'] = '£',
+    ['\x45'] = ')', ['\x16'] = '!', ['\x1E'] = '"', ['\x26'] = 0,
     ['\x25'] = '$', ['\x2E'] = '%', ['\x36'] = '^', ['\x3D'] = '&',
     ['\x3E'] = '*', ['\x46'] = '(',
 
@@ -66,6 +66,14 @@ static inline bool ps2_buffer_full(void) {
 
 static inline bool ps2_buffer_empty(void) {
     return buffer_head == buffer_tail;
+}
+
+static void ps2_buffer_push(uint8_t c) {
+    if (ps2_buffer_full()) {
+        return; /* Buffer is full so char is dtopped */
+    }
+    ps2_buffer[buffer_head] = c;
+    buffer_head = (buffer_head + 1) % PS2_BUFFER_SIZE;
 }
 
 /* PS2 Controller functions */
@@ -145,21 +153,32 @@ void ps2_keyboard_handler(void) {
     if (break_flag) {
         /* This scancode is a RELEASE */
         if (scancode == 0x12 || scancode == 0x59) {
-            // terminal_writeString("Shift Released\n", STATUS_DEBUG);
             shift_held = false;
         }
         break_flag = false;
     } else {
         /* This scancode is a PRESS */
+        /* Left shift and Right shift respectively */
         if (scancode == 0x12 || scancode == 0x59) {
-            // terminal_writeString("Shift Pressed\n", STATUS_DEBUG);
             shift_held = true;
-        } else if (scancode == 0x58) {
+        }
+        
+        /* Caps lock */
+        else if (scancode == 0x58) {
             caps_lock_on = !caps_lock_on;
-            // terminal_writeString(caps_lock_on ? "Caps Lock On\n" : "Caps Lock Off\n", STATUS_DEBUG);
         } else {
-            terminal_writeHex(scancode);
-            terminal_writeString("\n", STATUS_DEBUG);
+            /* Variable to store character pressed */
+            char c;
+            if (shift_held || caps_lock_on) {
+                c = keymap_upper[scancode];
+            } else {
+                c = keymap_lower[scancode];
+            }
+            
+            if (c != 0) {
+                ps2_buffer_push(c);
+                terminal_typeChar(c, STATUS_NORMAL);
+            }
         }
     }
     /* Send EOI */
