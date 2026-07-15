@@ -6,6 +6,14 @@ This kernel currently uses GRUB as its bootloader and prints basic status messag
 
 ---
 
+## Showcase
+
+![Preview of typing and wordwrap](/img/showcase1.png)
+
+![Preview of terminal scrolling](/img/showcase2.png)
+
+---
+
 ## Requirements
 
 - **GCC** cross-compiler for i686 (`i686-elf-gcc`)
