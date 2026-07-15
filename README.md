@@ -48,14 +48,13 @@ To manually check if your kernel is multiboot-compliant:
 - Register dumps in the case of an interrupt
 - Programmable interrupt timer (PIT)
 - Custom GDT
-- Initial keyboard support
+- Keyboard input
 
 ---
 
 ## Planned Features
 
-- **Keyboard input**
-- Paging memory map parsing
+- **Paging memory map parsing**
 - Custom shell
 - Minimal filesystem support
 
