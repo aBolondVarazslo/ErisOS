@@ -99,8 +99,23 @@ void terminal_typeChar(char c, uint8_t status) {
         terminal_column = 0;
 
     /* Backspace once */
-    else if (c == '\b')
-        terminal_column--;
+    else if (c == '\b') {
+        if (terminal_column > 0) {
+            terminal_column--;
+        }
+        
+        /* Moves to previous row if backspacing first character in row */
+        else if (terminal_row > 0) {
+            terminal_row--;
+            terminal_column = VGA_WIDTH - 1;
+        }
+        
+        /* Returns if in top-left of screen */
+        else {
+            return;
+        }
+        terminal_putCharAt(' ', status, terminal_column, terminal_row);
+    } 
 
     /* Tab once (4 spaces) */
     else if (c == '\t')
