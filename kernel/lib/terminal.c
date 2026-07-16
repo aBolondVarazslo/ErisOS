@@ -172,4 +172,5 @@ void terminal_readLine(char *buf, size_t max_len) {
             terminal_typeChar((char)c, STATUS_NORMAL);
         }
     }
+    buf[i] = '\0';
 }
