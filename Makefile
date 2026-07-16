@@ -1,53 +1,74 @@
+BUILD_DIR = build/
+BUILD_BOOTLOADER_DIR = $(BUILD_DIR)/bootloader
+BUILD_KERNEL_DIR = $(BUILD_DIR)/kernel
+BUILD_APP_DIR = $(BUILD_KERNEL_DIR)/app
+BUILD_CORE_DIR = $(BUILD_KERNEL_DIR)/core
+BUILD_CPU_DIR = $(BUILD_KERNEL_DIR)/cpu
+BUILD_DEBUGGING_DIR = $(BUILD_KERNEL_DIR)/debugging
+BUILD_DRIVERS_DIR = $(BUILD_KERNEL_DIR)/drivers
+BUILD_LIB_DIR = $(BUILD_KERNEL_DIR)/lib
+
+
+SRC_BOOTLOADER_DIR = src/bootloader
+SRC_GRUB_DIR = src/grub
+SRC_KERNEL_DIR = src/kernel
+SRC_APP_DIR = $(SRC_KERNEL_DIR)/app
+SRC_CORE_DIR = $(SRC_KERNEL_DIR)/core
+SRC_CPU_DIR = $(SRC_KERNEL_DIR)/cpu
+SRC_DEBUGGING_DIR = $(SRC_KERNEL_DIR)/debugging
+SRC_DRIVERS_DIR = $(SRC_KERNEL_DIR)/drivers
+SRC_LIB_DIR = $(SRC_KERNEL_DIR)/lib
+
+
 all:
-	rm -rf build/
-	mkdir -p build/bootloader
-	mkdir -p build/kernel/core
-	mkdir -p build/kernel/cpu/gdt
-	mkdir -p build/kernel/cpu/idt
-	mkdir -p build/kernel/cpu/isr
-	mkdir -p build/kernel/cpu/irq
-	mkdir -p build/kernel/debugging
-	mkdir -p build/kernel/drivers/pic
-	mkdir -p build/kernel/drivers/pit
-	mkdir -p build/kernel/drivers/ps2
-	mkdir -p build/kernel/drivers/io
-	mkdir -p build/kernel/lib
+	rm -rf $(BUILD_DIR)
+	mkdir -p $(BUILD_BOOTLOADER_DIR)
+	mkdir -p $(BUILD_CORE_DIR)
+	mkdir -p $(BUILD_CPU_DIR)/gdt
+	mkdir -p $(BUILD_CPU_DIR)/idt
+	mkdir -p $(BUILD_CPU_DIR)/isr
+	mkdir -p $(BUILD_CPU_DIR)/irq
+	mkdir -p $(BUILD_DEBUGGING_DIR)
+	mkdir -p $(BUILD_DRIVERS_DIR)/pic
+	mkdir -p $(BUILD_DRIVERS_DIR)/pit
+	mkdir -p $(BUILD_DRIVERS_DIR)/ps2
+	mkdir -p $(BUILD_DRIVERS_DIR)/io
+	mkdir -p $(BUILD_LIB_DIR)
 
 	# Assemble the boot file and stubs
-	i686-elf-as bootloader/boot.s -o build/bootloader/boot.o
-	i686-elf-as kernel/cpu/gdt/gdt.s -o build/kernel/cpu/gdt/gdt.o
-	i686-elf-as kernel/cpu/isr/isr_stubs.s -o build/kernel/cpu/isr/isr_stubs.o
-	i686-elf-as kernel/cpu/irq/irq_stubs.s -o build/kernel/cpu/irq/irq_stubs.o
+	i686-elf-as $(SRC_BOOTLOADER_DIR)/boot.s -o $(BUILD_BOOTLOADER_DIR)/boot.o
+	i686-elf-as $(SRC_CPU_DIR)/gdt/gdt.s -o $(BUILD_CPU_DIR)/gdt/gdt.o
+	i686-elf-as $(SRC_CPU_DIR)/isr/isr_stubs.s -o $(BUILD_CPU_DIR)/isr/isr_stubs.o
+	i686-elf-as $(SRC_CPU_DIR)/irq/irq_stubs.s -o $(BUILD_CPU_DIR)/irq/irq_stubs.o
 
 	# Compile kernel source files
-	i686-elf-gcc -c kernel/core/kernel.c -o build/kernel/core/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/lib/terminal.c -o build/kernel/lib/terminal.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/debugging/debugging.c -o build/kernel/debugging/debugging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	#i686-elf-gcc -c kernel/cpu/gdt/gdt.c -o build/kernel/cpu/gdt/gdt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/cpu/idt/idt.c -o build/kernel/cpu/idt/idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/cpu/isr/isr.c -o build/kernel/cpu/isr/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/cpu/irq/irq.c -o build/kernel/cpu/irq/irq.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/drivers/pic/pic.c -o build/kernel/drivers/pic/pic.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/drivers/pit/pit.c -o build/kernel/drivers/pit/pit.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/drivers/ps2/ps2.c -o build/kernel/drivers/ps2/ps2.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c kernel/drivers/io/io.c -o build/kernel/drivers/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_CORE_DIR)/kernel.c -o $(BUILD_CORE_DIR)/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_LIB_DIR)/terminal.c -o $(BUILD_LIB_DIR)/terminal.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_DEBUGGING_DIR)/debugging.c -o $(BUILD_DEBUGGING_DIR)/debugging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_CPU_DIR)/idt/idt.c -o $(BUILD_CPU_DIR)/idt/idt.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_CPU_DIR)/isr/isr.c -o $(BUILD_CPU_DIR)/isr/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_CPU_DIR)/irq/irq.c -o $(BUILD_CPU_DIR)/irq/irq.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/pic/pic.c -o $(BUILD_DRIVERS_DIR)/pic/pic.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/pit/pit.c -o $(BUILD_DRIVERS_DIR)/pit/pit.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/ps2/ps2.c -o $(BUILD_DRIVERS_DIR)/ps2/ps2.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/io/io.c -o $(BUILD_DRIVERS_DIR)/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
 	i686-elf-gcc -T linker.ld -o build/ErisOS.bin -ffreestanding -O2 -nostdlib \
-		build/bootloader/boot.o \
-		build/kernel/core/kernel.o \
-		build/kernel/lib/terminal.o \
-		build/kernel/debugging/debugging.o \
-		build/kernel/cpu/gdt/gdt.o \
-		build/kernel/cpu/idt/idt.o \
-		build/kernel/cpu/isr/isr.o \
-		build/kernel/cpu/isr/isr_stubs.o \
-		build/kernel/cpu/irq/irq.o \
-		build/kernel/cpu/irq/irq_stubs.o \
-		build/kernel/drivers/pic/pic.o \
-		build/kernel/drivers/pit/pit.o \
-		build/kernel/drivers/ps2/ps2.o \
-		build/kernel/drivers/io/io.o \
+		$(BUILD_BOOTLOADER_DIR)/boot.o \
+		$(BUILD_CORE_DIR)/kernel.o \
+		$(BUILD_LIB_DIR)/terminal.o \
+		$(BUILD_DEBUGGING_DIR)/debugging.o \
+		$(BUILD_CPU_DIR)/gdt/gdt.o \
+		$(BUILD_CPU_DIR)/idt/idt.o \
+		$(BUILD_CPU_DIR)/isr/isr.o \
+		$(BUILD_CPU_DIR)/isr/isr_stubs.o \
+		$(BUILD_CPU_DIR)/irq/irq.o \
+		$(BUILD_CPU_DIR)/irq/irq_stubs.o \
+		$(BUILD_DRIVERS_DIR)/pic/pic.o \
+		$(BUILD_DRIVERS_DIR)/pit/pit.o \
+		$(BUILD_DRIVERS_DIR)/ps2/ps2.o \
+		$(BUILD_DRIVERS_DIR)/io/io.o \
 		-lgcc
 
 	# Validate multiboot
@@ -55,8 +76,8 @@ all:
 
 	# Create ISO
 	mkdir -p isodir/boot/grub
-	cp build/ErisOS.bin isodir/boot/ErisOS.bin
-	cp grub/grub.cfg isodir/boot/grub/grub.cfg
+	cp $(BUILD_DIR)/ErisOS.bin isodir/boot/ErisOS.bin
+	cp $(SRC_GRUB_DIR)/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o ErisOS.iso isodir
 
 clean:

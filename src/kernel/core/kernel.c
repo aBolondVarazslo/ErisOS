@@ -33,7 +33,7 @@ void kernel_main(void) {
 
     ps2_init();
 
-    terminal_writeString("\nUpdate: 2026/07/15 @ 19:04\n", STATUS_DEBUG);
+    terminal_writeString("\nUpdate: 2026/07/16 @ 20:05\n", STATUS_DEBUG);
 
     char buf[128];
     while (1) {
