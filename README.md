@@ -4,7 +4,6 @@
 
 This kernel currently uses GRUB as its bootloader and prints basic status messages to the VGA text buffer in color. Over time, ErisOS will gain more features such as input handling and memory management.
 
----
 
 ## Showcase
 
@@ -12,7 +11,7 @@ This kernel currently uses GRUB as its bootloader and prints basic status messag
 
 ![Preview of terminal scrolling](/img/showcase2.png)
 
----
+
 
 ## Requirements
 
@@ -44,7 +43,6 @@ To manually check if your kernel is multiboot-compliant:
 ./multiboot-checker.sh
 ```
 
----
 
 ## Current Features
 
@@ -58,7 +56,6 @@ To manually check if your kernel is multiboot-compliant:
 - Custom GDT
 - Keyboard input
 
----
 
 ## Planned Features
 
@@ -66,20 +63,17 @@ To manually check if your kernel is multiboot-compliant:
 - Custom shell
 - Minimal filesystem support
 
----
 
 ## Branching Model
 
 - **`main`** - Stable branch. Features will be pulled from `dev` whenever they are added and at least **partly functional**, not leading to crashes.
 - **`dev`** - Development branch. All new features, experiments, etc will be developed and pushed here. Just because an update is pushed **does not mean it is stable**, or that the kernel will even boot. **If you would like to contribute, this is where you create a pull request.**
 
----
 
 ## License
 
 MIT License -- see `LICENSE` file for details
 
----
 
 ## Author
 
@@ -89,7 +83,6 @@ aBolondVarazslo
 - Passionate about low-level systems, compilers, and OS internals
 - GitHub: [aBolondVarazslo](https://github.com/aBolondVarazslo)
 
----
 
 ## Credits & Resources
 
