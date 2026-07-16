@@ -1,5 +1,6 @@
 #include "terminal.h"
 #include "vga.h"
+#include "../drivers/ps2/ps2.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -103,19 +104,19 @@ void terminal_typeChar(char c, uint8_t status) {
         if (terminal_column > 0) {
             terminal_column--;
         }
-        
+
         /* Moves to previous row if backspacing first character in row */
         else if (terminal_row > 0) {
             terminal_row--;
             terminal_column = VGA_WIDTH - 1;
         }
-        
+
         /* Returns if in top-left of screen */
         else {
             return;
         }
         terminal_putCharAt(' ', status, terminal_column, terminal_row);
-    } 
+    }
 
     /* Tab once (4 spaces) */
     else if (c == '\t')
@@ -134,8 +135,7 @@ void terminal_typeChar(char c, uint8_t status) {
 }
 
 void terminal_write(const char *data, size_t size, uint8_t status) {
-    for (size_t i = 0; i < size; i++)
-        terminal_typeChar(data[i], status);
+    for (size_t i = 0; i < size; i++) terminal_typeChar(data[i], status);
 }
 
 void terminal_writeString(const char *data, uint8_t status) {
@@ -150,4 +150,26 @@ void terminal_writeHex(uint32_t v) {
         v >>= 4;
     }
     terminal_writeString(buf, STATUS_DEBUG);
+}
+
+void terminal_readLine(char *buf, size_t max_len) {
+    size_t i = 0;
+    while (1) {
+        int c = ps2_getChar();
+        if (c == -1) continue; /* Nothing typed yet */
+
+        if (c == '\n') {
+            terminal_typeChar('\n', STATUS_NORMAL);
+        } else if (c == '\b') {
+            if (i > 0) {
+                i--;
+                terminal_typeChar('\b', STATUS_NORMAL);
+            }
+            /* If i == 0, nothing to delete */
+            continue;
+        } else if (i < max_len - 1) {
+            buf[i++] =  (char)c;
+            terminal_typeChar((char)c, STATUS_NORMAL);
+        }
+    }
 }

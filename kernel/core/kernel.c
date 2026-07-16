@@ -36,9 +36,6 @@ void kernel_main(void) {
     terminal_writeString("\nUpdate: 2026/07/15 @ 19:04\n", STATUS_DEBUG);
 
     while (1) {
-        int c = ps2_getChar();
-        if (c != -1) {
-            terminal_typeChar((char)c, STATUS_NORMAL);
-        }
+        terminal_readLine();
     }
 }
