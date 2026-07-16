@@ -35,7 +35,12 @@ void kernel_main(void) {
 
     terminal_writeString("\nUpdate: 2026/07/15 @ 19:04\n", STATUS_DEBUG);
 
+    char buf[128];
     while (1) {
-        terminal_readLine();
+        terminal_writeString("> ", STATUS_NORMAL);
+        terminal_readLine(buf, sizeof(buf));
+        terminal_writeString("You typed: ", STATUS_NORMAL);
+        terminal_writeString(buf, STATUS_NORMAL);
+        terminal_writeString("\n", STATUS_NORMAL);
     }
 }

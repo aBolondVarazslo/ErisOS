@@ -160,6 +160,7 @@ void terminal_readLine(char *buf, size_t max_len) {
 
         if (c == '\n') {
             terminal_typeChar('\n', STATUS_NORMAL);
+            break;
         } else if (c == '\b') {
             if (i > 0) {
                 i--;
