@@ -76,6 +76,15 @@ static void ps2_buffer_push(uint8_t c) {
     buffer_head = (buffer_head + 1) % PS2_BUFFER_SIZE;
 }
 
+int ps2_getChar(void) {
+    if (ps2_buffer_empty()) {
+        return -1;
+    }
+    char c = ps2_buffer[buffer_tail];
+    buffer_tail = (buffer_tail + 1) % PS2_BUFFER_SIZE;
+    return (int)c;
+}
+
 /* PS2 Controller functions */
 uint8_t ps2_read_data(void) {
     while (!(inb(PS2_COMMAND_PORT) & PS2_STATUS_OUTPUT_FULL)) {
@@ -177,7 +186,6 @@ void ps2_keyboard_handler(void) {
             
             if (c != 0) {
                 ps2_buffer_push(c);
-                terminal_typeChar(c, STATUS_NORMAL);
             }
         }
     }
