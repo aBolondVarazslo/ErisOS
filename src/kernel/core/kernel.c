@@ -6,6 +6,7 @@
 #include "../drivers/pit/pit.h"
 #include "../drivers/ps2/ps2.h"
 #include "../cpu/irq/irq.h"
+#include "../apps/shell/shell.h"
 
 void kernel_main(void) {
     /* Initialise terminal interface */
@@ -31,16 +32,16 @@ void kernel_main(void) {
     asm volatile("sti");
     terminal_writeString("Interrupts Enabled\n", STATUS_SUCCESS);
 
+    /* Initialise PS/2 */
     ps2_init();
-
+    
     terminal_writeString("\nUpdate: 2026/07/16 @ 20:05\n", STATUS_DEBUG);
-
+    
     char buf[128];
+    char *argv[MAX_ARGS];
     while (1) {
         terminal_writeString("> ", STATUS_NORMAL);
         terminal_readLine(buf, sizeof(buf));
-        terminal_writeString("You typed: ", STATUS_NORMAL);
-        terminal_writeString(buf, STATUS_NORMAL);
-        terminal_writeString("\n", STATUS_NORMAL);
+        terminal_tokenise(buf, argv);
     }
 }

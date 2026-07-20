@@ -1,7 +1,7 @@
-BUILD_DIR = build/
+BUILD_DIR = build
 BUILD_BOOTLOADER_DIR = $(BUILD_DIR)/bootloader
 BUILD_KERNEL_DIR = $(BUILD_DIR)/kernel
-BUILD_APP_DIR = $(BUILD_KERNEL_DIR)/app
+BUILD_APPS_DIR = $(BUILD_KERNEL_DIR)/apps
 BUILD_CORE_DIR = $(BUILD_KERNEL_DIR)/core
 BUILD_CPU_DIR = $(BUILD_KERNEL_DIR)/cpu
 BUILD_DEBUGGING_DIR = $(BUILD_KERNEL_DIR)/debugging
@@ -12,7 +12,7 @@ BUILD_LIB_DIR = $(BUILD_KERNEL_DIR)/lib
 SRC_BOOTLOADER_DIR = src/bootloader
 SRC_GRUB_DIR = src/grub
 SRC_KERNEL_DIR = src/kernel
-SRC_APP_DIR = $(SRC_KERNEL_DIR)/app
+SRC_APPS_DIR = $(SRC_KERNEL_DIR)/apps
 SRC_CORE_DIR = $(SRC_KERNEL_DIR)/core
 SRC_CPU_DIR = $(SRC_KERNEL_DIR)/cpu
 SRC_DEBUGGING_DIR = $(SRC_KERNEL_DIR)/debugging
@@ -23,6 +23,7 @@ SRC_LIB_DIR = $(SRC_KERNEL_DIR)/lib
 all:
 	rm -rf $(BUILD_DIR)
 	mkdir -p $(BUILD_BOOTLOADER_DIR)
+	mkdir -p $(BUILD_APPS_DIR)/shell
 	mkdir -p $(BUILD_CORE_DIR)
 	mkdir -p $(BUILD_CPU_DIR)/gdt
 	mkdir -p $(BUILD_CPU_DIR)/idt
@@ -52,6 +53,7 @@ all:
 	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/pit/pit.c -o $(BUILD_DRIVERS_DIR)/pit/pit.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/ps2/ps2.c -o $(BUILD_DRIVERS_DIR)/ps2/ps2.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/io/io.c -o $(BUILD_DRIVERS_DIR)/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_APPS_DIR)/shell/shell.c -o $(BUILD_APPS_DIR)/shell/shell.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
 	i686-elf-gcc -T linker.ld -o build/ErisOS.bin -ffreestanding -O2 -nostdlib \
@@ -69,6 +71,7 @@ all:
 		$(BUILD_DRIVERS_DIR)/pit/pit.o \
 		$(BUILD_DRIVERS_DIR)/ps2/ps2.o \
 		$(BUILD_DRIVERS_DIR)/io/io.o \
+		$(BUILD_APPS_DIR)/shell/shell.o \
 		-lgcc
 
 	# Validate multiboot
