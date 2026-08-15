@@ -83,6 +83,9 @@ all:
 	cp $(SRC_GRUB_DIR)/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o ErisOS.iso isodir
 
+run: all
+	qemu-system-x86_64 -cdrom ErisOS.iso
+
 clean:
 	rm -rf build/
 	rm -rf isodir/
