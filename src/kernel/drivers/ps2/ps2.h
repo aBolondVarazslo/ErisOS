@@ -23,6 +23,7 @@
 
 void ps2_init(void);
 void ps2_keyboard_handler(void);
+int ps2_getChar(void);
 
 /* Optional helper functions */
 uint8_t ps2_read_data(void);

@@ -1,6 +1,7 @@
 #include "irq.h"
 #include "../../drivers/pic/pic.h"
 #include "../../lib/terminal.h"
+#include "../../drivers/io/io.h"
 #include "../../drivers/ps2/ps2.h"
 
 void irq_common_handler(uint32_t int_no) {

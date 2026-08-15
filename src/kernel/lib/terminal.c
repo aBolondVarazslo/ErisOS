@@ -15,10 +15,18 @@ static inline uint16_t vga_entry(unsigned char uc, uint8_t colour) {
 }
 
 /* Calculates length of string */
-static size_t strlen(const char *str) {
+size_t strlen(const char *str) {
     size_t len = 0;
     while (str[len]) len++;
     return len;
+}
+
+int strcmp(const char *a, const char *b) {
+    while (*a && (*a == *b)) {
+        a++;
+        b++;
+    }
+    return (unsigned char)*a - (unsigned char)*b;
 }
 
 static size_t terminal_row;
@@ -99,8 +107,23 @@ void terminal_typeChar(char c, uint8_t status) {
         terminal_column = 0;
 
     /* Backspace once */
-    else if (c == '\b')
-        terminal_column--;
+    else if (c == '\b') {
+        if (terminal_column > 0) {
+            terminal_column--;
+        }
+
+        /* Moves to previous row if backspacing first character in row */
+        else if (terminal_row > 0) {
+            terminal_row--;
+            terminal_column = VGA_WIDTH - 1;
+        }
+
+        /* Returns if in top-left of screen */
+        else {
+            return;
+        }
+        terminal_putCharAt(' ', status, terminal_column, terminal_row);
+    }
 
     /* Tab once (4 spaces) */
     else if (c == '\t')
@@ -119,8 +142,7 @@ void terminal_typeChar(char c, uint8_t status) {
 }
 
 void terminal_write(const char *data, size_t size, uint8_t status) {
-    for (size_t i = 0; i < size; i++)
-        terminal_typeChar(data[i], status);
+    for (size_t i = 0; i < size; i++) terminal_typeChar(data[i], status);
 }
 
 void terminal_writeString(const char *data, uint8_t status) {

@@ -4,14 +4,21 @@
 
 This kernel currently uses GRUB as its bootloader and prints basic status messages to the VGA text buffer in color. Over time, ErisOS will gain more features such as input handling and memory management.
 
----
+
+## Showcase
+
+![Preview of typing and wordwrap](/img/showcase1.png)
+
+![Preview of terminal scrolling](/img/showcase2.png)
+
+
 
 ## Requirements
 
 - **GCC** cross-compiler for i686 (`i686-elf-gcc`)
 - **GNU Assembler** for assembly files (`i686-elf-as`)
 - **GRUB tools** (`grub-mkrescue`)
-- **VMware** (or any other emulator for testing)
+- **Emulator**
 
 You can install GRUB using your distro's package manager.
 For the cross-compiler and assembler, see [OSDev Wiki: GCC Cross-Compiler](https://wiki.osdev.org/GCC_Cross-Compiler).
@@ -36,42 +43,37 @@ To manually check if your kernel is multiboot-compliant:
 ./multiboot-checker.sh
 ```
 
----
 
 ## Current Features
 
-- VGA text-mode output
-- Coloured status messages (Green: successful, grey: in-progress tasks, red: failure, grey-on-blue: debug messages)
-- Basic terminal_writeString and terminal_writeHex functions
-- Terminal scrolling and word wrap (kind of) support
-- Interrupt descriptor table (IDT) skeleton
-- Register dumps in the case of an interrupt
-- Programmable interrupt timer (PIT)
-- Custom GDT
+- Custom shell
 - Keyboard input
+- Custom GDT
+- Programmable interrupt timer (PIT)
+- Register dumps in the case of an interrupt
+- Interrupt descriptor table (IDT) skeleton
+- Terminal scrolling and word wrap (kind of) support
+- Basic terminal_writeString and terminal_writeHex functions
+- Coloured status messages (Green: successful, grey: in-progress tasks, red: failure, grey-on-blue: debug messages)
+- VGA text-mode output
 
----
 
 ## Planned Features
 
 - **Paging memory map parsing**
-- Custom shell
 - Minimal filesystem support
 
----
 
 ## Branching Model
 
 - **`main`** - Stable branch. Features will be pulled from `dev` whenever they are added and at least **partly functional**, not leading to crashes.
 - **`dev`** - Development branch. All new features, experiments, etc will be developed and pushed here. Just because an update is pushed **does not mean it is stable**, or that the kernel will even boot. **If you would like to contribute, this is where you create a pull request.**
 
----
 
 ## License
 
 MIT License -- see `LICENSE` file for details
 
----
 
 ## Author
 
@@ -81,7 +83,6 @@ aBolondVarazslo
 - Passionate about low-level systems, compilers, and OS internals
 - GitHub: [aBolondVarazslo](https://github.com/aBolondVarazslo)
 
----
 
 ## Credits & Resources
 

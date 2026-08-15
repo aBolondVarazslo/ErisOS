@@ -1,11 +1,10 @@
 #include "../lib/terminal.h"
 #include "../cpu/gdt/gdt.h"
 #include "../cpu/idt/idt.h"
-#include "../debugging/debugging.h"
 #include "../drivers/pic/pic.h"
 #include "../drivers/pit/pit.h"
 #include "../drivers/ps2/ps2.h"
-#include "../cpu/irq/irq.h"
+#include "../apps/shell/shell.h"
 
 void kernel_main(void) {
     /* Initialise terminal interface */
@@ -31,10 +30,12 @@ void kernel_main(void) {
     asm volatile("sti");
     terminal_writeString("Interrupts Enabled\n", STATUS_SUCCESS);
 
+    /* Initialise PS/2 */
     ps2_init();
 
-    terminal_writeString("\nUpdate: 2026/07/15 @ 19:04\n", STATUS_DEBUG);
-    terminal_writeString("Reached end of kernel...\n", STATUS_NORMAL);
+    terminal_writeString("\nUpdate: 2026/07/16 @ 20:05\n", STATUS_DEBUG);
 
-    while (1);
+    char buf[128];
+    char *argv[MAX_ARGS];
+    shell_run();
 }

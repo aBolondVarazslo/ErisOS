@@ -4,7 +4,6 @@ First off, thank you for taking the time to contribute.
 
 This document outlines how to contribute effectively and respectfully.
 
----
 
 ## Table of Contents
 
@@ -18,7 +17,6 @@ This document outlines how to contribute effectively and respectfully.
 * [Suggesting Features](#suggesting-features)
 * [Style & Philosophy](#style--philosophy)
 
----
 
 ## Code of Conduct
 
@@ -26,7 +24,6 @@ Be respectful. Be constructive. Assume good intent.
 
 Harassment, discrimination, or hostile behavior is not tolerated. Disagreements are fine; personal attacks are not. Maintainers may remove or reject contributions that violate this principle.
 
----
 
 ## Ways to Contribute
 
@@ -40,7 +37,6 @@ You can contribute by:
 * Reporting bugs or regressions
 * Reviewing pull requests
 
----
 
 ## Getting Started
 
@@ -49,7 +45,6 @@ You can contribute by:
 3. Test your changes where applicable
 4. Open a pull request one the `dev` branch
 
----
 
 ## Development Guidelines
 
@@ -60,7 +55,6 @@ You can contribute by:
 
 If your change is large or architectural, consider opening an issue first to discuss it.
 
----
 
 ## Commit Messages
 
@@ -78,7 +72,6 @@ Write clear, descriptive commit messages.
 * `updates`
 * `lol`
 
----
 
 ## Pull Requests
 
@@ -91,7 +84,6 @@ When opening a pull request:
 
 Pull requests may be reviewed, requested to change, or rejected. This is not personal.
 
----
 
 ## Reporting Bugs
 
@@ -105,7 +97,6 @@ If you find a bug, please open an issue and include:
 
 Clear bug reports save time for everyone.
 
----
 
 ## Suggesting Features
 
@@ -119,7 +110,6 @@ Please include:
 
 Not all feature requests will be accepted. ErisOS has a specific scope and philosophy.
 
----
 
 ## Style & Philosophy
 
@@ -131,7 +121,6 @@ ErisOS values:
 
 If you’re unsure whether something fits, ask first.
 
----
 
 ## Final Notes
 
