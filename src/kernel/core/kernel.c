@@ -33,8 +33,6 @@ void kernel_main(void) {
     /* Initialise PS/2 */
     ps2_init();
 
-    terminal_writeString("\nUpdate: 2026/07/16 @ 20:05\n", STATUS_DEBUG);
-
     char buf[128];
     char *argv[MAX_ARGS];
     shell_run();
