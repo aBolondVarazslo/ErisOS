@@ -21,6 +21,14 @@ static size_t strlen(const char *str) {
     return len;
 }
 
+int strcmp(const char *a, const char *b) {
+    while (*a && (*a == *b)) {
+        a++;
+        b++;
+    }
+    return (unsigned char)*a - (unsigned char)*b;
+}
+
 static size_t terminal_row;
 static size_t terminal_column;
 static uint16_t *const terminal_buffer = (uint16_t *)VGA_MEMORY;

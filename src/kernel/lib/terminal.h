@@ -11,6 +11,7 @@
 #define STATUS_DEBUG   3
 
 /* API */
+int strcmp(const char *a, const char *b);
 void terminal_initialise(void);
 void terminal_write(const char *data, size_t size, uint8_t status);
 void terminal_writeString(const char *data, uint8_t status);

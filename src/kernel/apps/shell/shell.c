@@ -2,6 +2,8 @@
 #include "../../lib/terminal.h"
 #include "../../drivers/ps2/ps2.h"
 
+#define NUM_COMMANDS (sizeof(commands) / sizeof(commands[0]))
+
 void terminal_readLine(char *buf, size_t max_len) {
     size_t i = 0;
     while (1) {
@@ -56,11 +58,63 @@ int terminal_tokenise(char *buf, char *argv[MAX_ARGS]) {
         }
     }
 
-    /* Output tokenised version of string */
-    for (int i = 0; i < argc; ++i) {
-        terminal_writeString(argv[i], STATUS_DEBUG);
-        terminal_typeChar('\n', STATUS_DEBUG);
-    }
-    
     return argc;
+}
+
+typedef void (*shell_command_fn)(int argc, char *argv[]);
+
+static void cmd_echo(int argc, char *argv[]) {
+    for (int i = 1; i < argc; i++) {
+        terminal_writeString(argv[i], STATUS_NORMAL);
+        terminal_typeChar(' ', STATUS_NORMAL);
+    }
+    terminal_typeChar('\n', STATUS_NORMAL);
+};
+
+static void cmd_clear() {
+    terminal_initialise();
+}
+
+typedef struct {
+    const char *name;
+    shell_command_fn fn;
+} shell_command_t;
+
+static const shell_command_t commands[] = {
+    {"echo", cmd_echo},
+    {"clear", cmd_clear}
+};
+
+static void shell_dispatch(int argc, char *argv[]) {
+    /* Empty line entered */
+    if (argc == 0) return;
+
+    /* Loop through every registered command in the table */
+    for (size_t i = 0; i < NUM_COMMANDS; i++) {
+        if (strcmp(argv[0], commands[i].name) == 0) {
+            commands[i].fn(argc, argv);
+            return;
+        }
+    }
+
+    /* Fallback if command isn't valid */
+    terminal_writeString("Unknown command: ", STATUS_FAILURE);
+    terminal_writeString(argv[0], STATUS_FAILURE);
+    terminal_typeChar('\n', STATUS_FAILURE);
+}
+
+void shell_run(void) {
+    /* Creates buffer and argument arrays */
+    char buf[MAX_LINE];
+    char *argv[MAX_ARGS];
+
+    while (1) {
+        /* Terminal prompt */
+        terminal_writeString("> ", STATUS_NORMAL);
+        terminal_readLine(buf, sizeof(buf));
+
+        /* Breaks input into command and arguments and runs it */
+        int argc = terminal_tokenise(buf, argv);
+        shell_dispatch(argc, argv);
+    }
 }

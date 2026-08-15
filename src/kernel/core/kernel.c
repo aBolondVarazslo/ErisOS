@@ -37,9 +37,5 @@ void kernel_main(void) {
 
     char buf[128];
     char *argv[MAX_ARGS];
-    while (1) {
-        terminal_writeString("> ", STATUS_NORMAL);
-        terminal_readLine(buf, sizeof(buf));
-        terminal_tokenise(buf, argv);
-    }
+    shell_run();
 }
