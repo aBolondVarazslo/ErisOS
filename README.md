@@ -46,21 +46,21 @@ To manually check if your kernel is multiboot-compliant:
 
 ## Current Features
 
-- VGA text-mode output
-- Coloured status messages (Green: successful, grey: in-progress tasks, red: failure, grey-on-blue: debug messages)
-- Basic terminal_writeString and terminal_writeHex functions
-- Terminal scrolling and word wrap (kind of) support
-- Interrupt descriptor table (IDT) skeleton
-- Register dumps in the case of an interrupt
-- Programmable interrupt timer (PIT)
-- Custom GDT
+- Custom shell
 - Keyboard input
+- Custom GDT
+- Programmable interrupt timer (PIT)
+- Register dumps in the case of an interrupt
+- Interrupt descriptor table (IDT) skeleton
+- Terminal scrolling and word wrap (kind of) support
+- Basic terminal_writeString and terminal_writeHex functions
+- Coloured status messages (Green: successful, grey: in-progress tasks, red: failure, grey-on-blue: debug messages)
+- VGA text-mode output
 
 
 ## Planned Features
 
 - **Paging memory map parsing**
-- Custom shell
 - Minimal filesystem support
 
 
