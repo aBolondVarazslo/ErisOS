@@ -84,8 +84,8 @@ typedef struct {
 } shell_command_t;
 
 static const shell_command_t commands[] = {
-    {"echo", cmd_echo, "Outputs text to the terminal"},
     {"clear", cmd_clear, "Clears the terminal"},
+    {"echo", cmd_echo, "Outputs text to the terminal"},
     {"help", cmd_help, "Outputs commands and descriptions to the terminal"}
 };
 
