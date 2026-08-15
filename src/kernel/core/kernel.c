@@ -1,11 +1,9 @@
 #include "../lib/terminal.h"
 #include "../cpu/gdt/gdt.h"
 #include "../cpu/idt/idt.h"
-#include "../debugging/debugging.h"
 #include "../drivers/pic/pic.h"
 #include "../drivers/pit/pit.h"
 #include "../drivers/ps2/ps2.h"
-#include "../cpu/irq/irq.h"
 #include "../apps/shell/shell.h"
 
 void kernel_main(void) {
@@ -34,9 +32,9 @@ void kernel_main(void) {
 
     /* Initialise PS/2 */
     ps2_init();
-    
+
     terminal_writeString("\nUpdate: 2026/07/16 @ 20:05\n", STATUS_DEBUG);
-    
+
     char buf[128];
     char *argv[MAX_ARGS];
     while (1) {

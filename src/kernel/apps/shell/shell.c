@@ -1,6 +1,6 @@
 #include "shell.h"
-#include "../../lib/vga.h"
 #include "../../lib/terminal.h"
+#include "../../drivers/ps2/ps2.h"
 
 void terminal_readLine(char *buf, size_t max_len) {
     size_t i = 0;

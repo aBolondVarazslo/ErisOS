@@ -1,6 +1,5 @@
 #include "terminal.h"
 #include "vga.h"
-#include "../drivers/ps2/ps2.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
