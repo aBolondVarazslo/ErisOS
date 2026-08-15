@@ -75,15 +75,34 @@ static void cmd_clear() {
     terminal_initialise();
 }
 
+static void cmd_help();
+
 typedef struct {
     const char *name;
     shell_command_fn fn;
+    const char *description;
 } shell_command_t;
 
 static const shell_command_t commands[] = {
-    {"echo", cmd_echo},
-    {"clear", cmd_clear}
+    {"echo", cmd_echo, "Outputs text to the terminal"},
+    {"clear", cmd_clear, "Clears the terminal"},
+    {"help", cmd_help, "Outputs commands and descriptions to the terminal"}
 };
+
+static void cmd_help() {
+    for (int i = 0; i < NUM_COMMANDS; i++) {
+        size_t len = strlen(commands[i].name);
+
+        terminal_writeString(commands[i].name, STATUS_NORMAL);
+
+        for(size_t i = len; i < 10; i++) {
+            terminal_typeChar(' ', STATUS_NORMAL);
+        }
+
+        terminal_writeString(commands[i].description,STATUS_NORMAL);
+        terminal_typeChar('\n', STATUS_NORMAL);
+    }
+}
 
 static void shell_dispatch(int argc, char *argv[]) {
     /* Empty line entered */
