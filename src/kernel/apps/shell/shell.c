@@ -95,7 +95,11 @@ static void cmd_help() {
 
         terminal_writeString(commands[i].name, STATUS_NORMAL);
 
-        for(size_t i = len; i < 10; i++) {
+        if (len < 10) {
+            for(size_t i = len; i < 10; i++) {
+                terminal_typeChar(' ', STATUS_NORMAL);
+            }
+        } else {
             terminal_typeChar(' ', STATUS_NORMAL);
         }
 
