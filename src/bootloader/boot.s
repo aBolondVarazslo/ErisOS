@@ -32,6 +32,8 @@ _start:
     mov esp, offset stack_top
     and esp, 0xFFFFFFF0
 
+    push ebx
+
     call kernel_main
 
     cli
