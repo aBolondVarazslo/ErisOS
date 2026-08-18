@@ -6,6 +6,7 @@
 #include "../drivers/ps2/ps2.h"
 #include "../apps/shell/shell.h"
 #include "multiboot.h"
+#include "../memory/pmm.h"
 #include <stdint.h>
 
 void kernel_main(uint32_t multiboot_info_ptr) {
@@ -35,18 +36,15 @@ void kernel_main(uint32_t multiboot_info_ptr) {
     /* Initialise PS/2 */
     ps2_init();
 
+    /* Multiboot memory map parsing */
     multiboot_info_t *mb_info = (multiboot_info_t *)multiboot_info_ptr;
 
+    /* Ensure a memory map was provided */
     if (!(mb_info->flags & (1 << 6))) {
         terminal_writeString("Multiboot memory map not provided!\n", STATUS_FAILURE);
     }
 
-    terminal_writeString("Lower mem (KB): ", STATUS_DEBUG);
-    terminal_writeHex(mb_info->mem_lower);
-    terminal_writeString("\nUpper mem (KB): ", STATUS_DEBUG);
-    terminal_writeHex(mb_info->mem_higher);
-    terminal_typeChar('\n', STATUS_DEBUG);
-
+    /* Walk through the memory map entries */
     multiboot_mmap_entry_t *entry = (multiboot_mmap_entry_t *)mb_info->mmap_addr;
     uint32_t offset = 0;
 
@@ -54,6 +52,9 @@ void kernel_main(uint32_t multiboot_info_ptr) {
         offset += entry->size + sizeof(entry->size);
         entry = (multiboot_mmap_entry_t *)((uint8_t *)entry + entry->size + sizeof(entry->size));
     }
+
+    /* Initialise memory map */
+    pmm_init(mb_info);
 
     char buf[128];
     char *argv[MAX_ARGS];
