@@ -67,3 +67,26 @@ void pmm_init(multiboot_info_t *mb_info) {
         bitmap_set(frame);
     }
 }
+
+uint32_t pmm_alloc_frame(void) {
+    for (uint32_t i = 0; i < MAX_FRAMES; i++) {
+        /* Check if the frame is free */
+        if (!bitmap_test(i)) {
+            /* Mark the frame as used */
+            bitmap_set(i);
+            return i * FRAME_SIZE;
+        }
+    }
+
+    /* No free frames available */
+    return PMM_INVALID_FRAME;
+}
+
+void pmm_free_frame(uint32_t frame_addr) {
+    uint32_t frame = frame_addr / FRAME_SIZE;
+
+    /* Check if the frame is valid */
+    if (frame < MAX_FRAMES) {
+        bitmap_clear(frame);
+    }
+}
