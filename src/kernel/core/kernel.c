@@ -7,13 +7,14 @@
 #include "../apps/shell/shell.h"
 #include "multiboot.h"
 #include "../memory/pmm.h"
+#include "../memory/paging.h"
 #include <stdint.h>
 
 void kernel_main(uint32_t multiboot_info_ptr) {
     /* Initialise terminal interface */
     terminal_initialise();
 
-    terminal_writeString("Kernel boot successful.\n", STATUS_SUCCESS);
+    terminal_writeString("Kernel boot successful\n", STATUS_SUCCESS);
 
     /* Prevent GDT OK message from being overwritten by IDT Initialised message */
     terminal_writeString("\n", STATUS_DEBUG);
@@ -55,6 +56,8 @@ void kernel_main(uint32_t multiboot_info_ptr) {
 
     /* Initialise memory map */
     pmm_init(mb_info);
+
+    paging_init();
 
     char buf[128];
     char *argv[MAX_ARGS];
