@@ -58,6 +58,7 @@ all:
 	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/io/io.c -o $(BUILD_DRIVERS_DIR)/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c $(SRC_APPS_DIR)/shell/shell.c -o $(BUILD_APPS_DIR)/shell/shell.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c $(SRC_MEMORY_DIR)/pmm.c -o $(BUILD_MEMORY_DIR)/pmm.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_MEMORY_DIR)/paging.c -o $(BUILD_MEMORY_DIR)/paging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
 	i686-elf-gcc -T linker.ld -o build/ErisOS.bin -ffreestanding -O2 -nostdlib \
@@ -77,6 +78,7 @@ all:
 		$(BUILD_DRIVERS_DIR)/io/io.o \
 		$(BUILD_APPS_DIR)/shell/shell.o \
 		$(BUILD_MEMORY_DIR)/pmm.o \
+		$(BUILD_MEMORY_DIR)/paging.o \
 		-lgcc
 
 	# Validate multiboot
