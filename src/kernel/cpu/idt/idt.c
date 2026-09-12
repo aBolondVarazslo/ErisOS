@@ -37,5 +37,5 @@ void idt_init(void) {
     /* Load IDT */
     asm volatile("lidt %0" : : "m"(idt_ptr));
 
-    terminal_writeString("IDT Initialised.\n", STATUS_SUCCESS);
+    terminal_writeString("IDT Initialised\n", STATUS_SUCCESS);
 }
