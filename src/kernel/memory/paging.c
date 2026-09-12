@@ -31,16 +31,21 @@ void paging_init(void) {
     }
 
     /* Build page with identity mapping */
-    uint32_t table_addr = pmm_alloc_frame();
-    page_table_t *page_table = (page_table_t *)table_addr;
+    uint32_t total_frames = pmm_get_highest_frame();
+    uint32_t num_tables = (total_frames + 1023) / 1024;
 
-    for (uint32_t i = 0; i < 1024; i++) {
-        uint32_t frame_addr = i * FRAME_SIZE;
-        (*page_table)[i] = frame_addr | PAGE_PRESENT | PAGE_RW;
+    for (uint32_t t = 0; t < num_tables; t++) {
+        uint32_t table_addr = pmm_alloc_frame();
+        page_table_t *page_table = (page_table_t *)table_addr;
+
+        for (uint32_t i = 0; i < 1024; i++) {
+            uint32_t frame_number = t * 1024 + i;
+            uint32_t frame_addr = frame_number * FRAME_SIZE;
+            (*page_table)[i] = frame_addr | PAGE_PRESENT | PAGE_RW;
+        }
+
+        (*page_directory)[t] = table_addr | PAGE_PRESENT | PAGE_RW;
     }
-
-    /* Set the first entry of the page directory to point to the page table */
-    (*page_directory)[0] = table_addr | PAGE_PRESENT | PAGE_RW;
 
     /* Load the page directory into CR3 and enable paging */
     load_page_directory(dir_addr);

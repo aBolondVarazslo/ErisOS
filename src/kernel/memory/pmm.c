@@ -12,6 +12,7 @@ extern uint32_t kernel_end;
     only 32KB of memory as opposed to 256KB
 */
 static uint8_t frame_bitmap[MAX_FRAMES / 8];
+static uint32_t highest_frame = 0;
 
 static inline void bitmap_set(uint32_t frame) {
     frame_bitmap[frame / 8] |= (1 << (frame % 8));
@@ -53,6 +54,10 @@ void pmm_init(multiboot_info_t *mb_info) {
             for (uint32_t frame = start_frame; frame < end_frame && frame < MAX_FRAMES; frame++) {
                 bitmap_clear(frame);
             }
+
+            if (end_frame > highest_frame) {
+                highest_frame = end_frame;
+            }
         }
 
         offset += entry->size + sizeof(entry->size);
@@ -89,4 +94,8 @@ void pmm_free_frame(uint32_t frame_addr) {
     if (frame < MAX_FRAMES) {
         bitmap_clear(frame);
     }
+}
+
+uint32_t pmm_get_highest_frame(void) {
+    return highest_frame;
 }
