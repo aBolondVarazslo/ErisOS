@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.1.8] - 2026-09-12
+
+### Added
+
+* Paging support with multi-table identity mapping covering all detected usable RAM
+* CR0-based verification that paging is enabled after setup
+
+## [0.1.7] - 2026-08-29
+
+### Added
+
+* Multiboot memory map parsing (`multiboot.h`, `multiboot_info_t`, `multiboot_mmap_entry_t`)
+* Physical memory manager (`pmm.c`/`pmm.h`) with bitmap-based frame allocator
+* `pmm_alloc_frame()` / `pmm_free_frame()` with kernel-region reserveration via linker symbols
+
 ## [0.1.6] - 2026-08-15
 
 ### Added
