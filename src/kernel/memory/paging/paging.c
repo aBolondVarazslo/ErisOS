@@ -1,6 +1,6 @@
 #include "paging.h"
-#include "pmm.h"
-#include "../lib/terminal.h"
+#include "../pmm/pmm.h"
+#include "../../lib/terminal.h"
 #include <stdint.h>
 
 static inline void load_page_directory(uint32_t dir_addr) {

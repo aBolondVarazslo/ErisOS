@@ -99,3 +99,31 @@ void pmm_free_frame(uint32_t frame_addr) {
 uint32_t pmm_get_highest_frame(void) {
     return highest_frame;
 }
+
+uint32_t pmm_alloc_frames(uint32_t count) {
+    /* Keeps track of how many free frames are encountered in a row */
+    uint32_t current_frame_streak = 0;
+
+    for (uint32_t i = 0; i < MAX_FRAMES; i++) {
+        /* Check if frame is free */
+        if (!bitmap_test(i)) {
+            /* Add free frame to counter */
+            current_frame_streak++;
+            if (current_frame_streak == count) {
+                /* Calculate and set starting streak frame */
+                uint32_t start_frame = i - count + 1;
+
+                for (uint32_t f = start_frame; f <= i; f++) {
+                    bitmap_set(f);
+                }
+
+                return start_frame * FRAME_SIZE;
+            }
+        } else {
+            current_frame_streak = 0;
+        }
+    }
+    
+    /* No gap big enough */
+    return PMM_INVALID_FRAME;
+}

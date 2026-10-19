@@ -8,6 +8,9 @@ BUILD_DEBUGGING_DIR = $(BUILD_KERNEL_DIR)/debugging
 BUILD_DRIVERS_DIR = $(BUILD_KERNEL_DIR)/drivers
 BUILD_LIB_DIR = $(BUILD_KERNEL_DIR)/lib
 BUILD_MEMORY_DIR = $(BUILD_KERNEL_DIR)/memory
+BUILD_PMM_DIR = $(BUILD_MEMORY_DIR)/pmm
+BUILD_PAGING_DIR = $(BUILD_MEMORY_DIR)/paging
+BUILD_HEAP_DIR = $(BUILD_MEMORY_DIR)/heap
 
 
 SRC_BOOTLOADER_DIR = src/bootloader
@@ -20,6 +23,9 @@ SRC_DEBUGGING_DIR = $(SRC_KERNEL_DIR)/debugging
 SRC_DRIVERS_DIR = $(SRC_KERNEL_DIR)/drivers
 SRC_LIB_DIR = $(SRC_KERNEL_DIR)/lib
 SRC_MEMORY_DIR = $(SRC_KERNEL_DIR)/memory
+SRC_PMM_DIR = $(SRC_MEMORY_DIR)/pmm
+SRC_PAGING_DIR = $(SRC_MEMORY_DIR)/paging
+SRC_HEAP_DIR = $(SRC_MEMORY_DIR)/heap
 
 
 all:
@@ -37,6 +43,9 @@ all:
 	mkdir -p $(BUILD_DRIVERS_DIR)/ps2
 	mkdir -p $(BUILD_DRIVERS_DIR)/io
 	mkdir -p $(BUILD_MEMORY_DIR)
+	mkdir -p $(BUILD_PMM_DIR)
+	mkdir -p $(BUILD_PAGING_DIR)
+	mkdir -p $(BUILD_HEAP_DIR)
 	mkdir -p $(BUILD_LIB_DIR)
 
 	# Assemble the boot file and stubs
@@ -57,8 +66,9 @@ all:
 	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/ps2/ps2.c -o $(BUILD_DRIVERS_DIR)/ps2/ps2.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c $(SRC_DRIVERS_DIR)/io/io.c -o $(BUILD_DRIVERS_DIR)/io/io.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c $(SRC_APPS_DIR)/shell/shell.c -o $(BUILD_APPS_DIR)/shell/shell.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c $(SRC_MEMORY_DIR)/pmm.c -o $(BUILD_MEMORY_DIR)/pmm.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	i686-elf-gcc -c $(SRC_MEMORY_DIR)/paging.c -o $(BUILD_MEMORY_DIR)/paging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_PMM_DIR)/pmm.c -o $(BUILD_PMM_DIR)/pmm.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_PAGING_DIR)/paging.c -o $(BUILD_PAGING_DIR)/paging.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	i686-elf-gcc -c $(SRC_HEAP_DIR)/heap.c -o $(BUILD_HEAP_DIR)/heap.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 	# Link kernel
 	i686-elf-gcc -T linker.ld -o build/ErisOS.bin -ffreestanding -O2 -nostdlib \
@@ -77,8 +87,9 @@ all:
 		$(BUILD_DRIVERS_DIR)/ps2/ps2.o \
 		$(BUILD_DRIVERS_DIR)/io/io.o \
 		$(BUILD_APPS_DIR)/shell/shell.o \
-		$(BUILD_MEMORY_DIR)/pmm.o \
-		$(BUILD_MEMORY_DIR)/paging.o \
+		$(BUILD_PMM_DIR)/pmm.o \
+		$(BUILD_PAGING_DIR)/paging.o \
+		$(BUILD_HEAP_DIR)/heap.o \
 		-lgcc
 
 	# Validate multiboot

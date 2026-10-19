@@ -6,8 +6,9 @@
 #include "../drivers/ps2/ps2.h"
 #include "../apps/shell/shell.h"
 #include "multiboot.h"
-#include "../memory/pmm.h"
-#include "../memory/paging.h"
+#include "../memory/pmm/pmm.h"
+#include "../memory/paging/paging.h"
+#include "../memory/heap/heap.h"
 #include <stdint.h>
 
 void kernel_main(uint32_t multiboot_info_ptr) {
@@ -58,6 +59,16 @@ void kernel_main(uint32_t multiboot_info_ptr) {
     pmm_init(mb_info);
 
     paging_init();
+
+    uint32_t heap_frames = 256;
+    uint32_t heap_addr = pmm_alloc_frames(heap_frames);
+
+    if (heap_addr == PMM_INVALID_FRAME) {
+        terminal_writeString("Failed to allocate heap!\n", STATUS_FAILURE);
+    } else {
+        heap_init(heap_addr, heap_frames * FRAME_SIZE);
+        terminal_writeString("Heap Initialised\n", STATUS_SUCCESS);
+    }
 
     char buf[128];
     char *argv[MAX_ARGS];

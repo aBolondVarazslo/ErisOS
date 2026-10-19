@@ -1,5 +1,5 @@
 #include "heap.h"
-#include "pmm.h"
+#include "../pmm/pmm.h"
 #include <stdint.h>
 #include <stddef.h>
 

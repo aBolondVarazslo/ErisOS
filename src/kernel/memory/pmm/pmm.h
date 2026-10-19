@@ -1,7 +1,7 @@
 #ifndef PMM_H
 #define PMM_H
 
-#include "../core/multiboot.h"
+#include "../../core/multiboot.h"
 #include <stdint.h>
 
 #define FRAME_SIZE 4096
