@@ -14,6 +14,7 @@ void heap_init(uint32_t start_addr, uint32_t size) {
 }
 
 void *kmalloc(uint32_t size) {
+    size = (size + 3u) & ~3u;
     if (size > heap_end - heap_current) {
         return NULL;
     }
