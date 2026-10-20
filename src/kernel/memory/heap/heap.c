@@ -2,6 +2,7 @@
 #include "../pmm/pmm.h"
 #include <stdint.h>
 #include <stddef.h>
+#include <limits.h>
 
 static uint32_t heap_start;
 static uint32_t heap_end;
@@ -14,6 +15,10 @@ void heap_init(uint32_t start_addr, uint32_t size) {
 }
 
 void *kmalloc(uint32_t size) {
+    if (size > UINT32_MAX - 3u) {
+        return NULL;
+    }
+
     size = (size + 3u) & ~3u;
     if (size > heap_end - heap_current) {
         return NULL;
