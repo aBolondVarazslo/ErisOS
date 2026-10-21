@@ -46,6 +46,7 @@ To manually check if your kernel is multiboot-compliant:
 
 ## Current Features
 
+- **Paging memory map parsing**
 - Custom shell
 - Keyboard input
 - Custom GDT
@@ -60,7 +61,6 @@ To manually check if your kernel is multiboot-compliant:
 
 ## Planned Features
 
-- **Paging memory map parsing**
 - Minimal filesystem support
 
 
