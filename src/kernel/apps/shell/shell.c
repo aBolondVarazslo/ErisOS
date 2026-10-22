@@ -7,8 +7,13 @@
 void terminal_readLine(char *buf, size_t max_len) {
     size_t i = 0;
     while (1) {
+        asm volatile("cli");
         int c = ps2_getChar();
-        if (c == -1) continue; /* Nothing typed yet */
+        if (c == -1) {
+            asm volatile("sti; hlt");
+            continue;
+        }
+        asm volatile("sti");
 
         if (c == '\n') {
             terminal_typeChar('\n', STATUS_NORMAL);
