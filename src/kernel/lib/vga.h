@@ -5,7 +5,7 @@
 
 #define VGA_WIDTH  80
 #define VGA_HEIGHT 25
-#define VGA_MEMORY 0xB8000
+#define VGA_MEMORY 0xC00B8000
 
 #define TAB_WIDTH 4
 #define TERMINAL_COLOUR vga_entry_colour(VGA_COLOUR_LIGHT_GREY, VGA_COLOUR_BLACK)

@@ -9,7 +9,11 @@
 #include "../memory/pmm/pmm.h"
 #include "../memory/paging/paging.h"
 #include "../memory/heap/heap.h"
+#include "../memory/memlayout/memlayout.h"
 #include <stdint.h>
+
+extern uint32_t kernel_start;
+extern uint32_t kernel_end;
 
 void kernel_main(uint32_t multiboot_info_ptr) {
     /* Initialise terminal interface */
@@ -39,7 +43,7 @@ void kernel_main(uint32_t multiboot_info_ptr) {
     ps2_init();
 
     /* Multiboot memory map parsing */
-    multiboot_info_t *mb_info = (multiboot_info_t *)multiboot_info_ptr;
+    multiboot_info_t *mb_info = (multiboot_info_t *)PHYS_TO_VIRT(multiboot_info_ptr);
 
     /* Ensure a memory map was provided */
     if (!(mb_info->flags & (1 << 6))) {
@@ -47,7 +51,7 @@ void kernel_main(uint32_t multiboot_info_ptr) {
     }
 
     /* Walk through the memory map entries */
-    multiboot_mmap_entry_t *entry = (multiboot_mmap_entry_t *)mb_info->mmap_addr;
+    multiboot_mmap_entry_t *entry = (multiboot_mmap_entry_t *)PHYS_TO_VIRT(mb_info->mmap_addr);
     uint32_t offset = 0;
 
     while (offset < mb_info->mmap_length) {
@@ -66,7 +70,7 @@ void kernel_main(uint32_t multiboot_info_ptr) {
     if (heap_addr == PMM_INVALID_FRAME) {
         terminal_writeString("Failed to allocate heap!\n", STATUS_FAILURE);
     } else {
-        heap_init(heap_addr, heap_frames * FRAME_SIZE);
+        heap_init(PHYS_TO_VIRT(heap_addr), heap_frames * FRAME_SIZE);
         terminal_writeString("Heap Initialised\n", STATUS_SUCCESS);
     }
 

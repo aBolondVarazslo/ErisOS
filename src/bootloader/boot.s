@@ -13,6 +13,12 @@
 .long FLAGS
 .long CHECKSUM
 
+/* Temporary page directory */
+.section .boot.data, "aw", @progbits
+.balign 4096
+boot_page_directory:
+    .skip 4096
+
 /* Stack */
 .section .bss
 .align 16
@@ -25,10 +31,33 @@ stack_top:
 .intel_syntax noprefix
 .code32
 
-.section .text
+/* Runs with paging off */
+.section .boot.text, "ax", @progbits
 .global _start
 .type _start, @function
 _start:
+    mov eax, offset boot_page_directory
+
+    mov dword ptr [eax], 0x83
+    mov dword ptr [eax + 0xC00], 0x83
+
+    mov ecx, cr4
+    or ecx, 0x10
+    mov cr4, ecx
+
+    mov cr3, eax
+
+    mov ecx, cr0
+    or ecx, 0x80000000
+    mov cr0, ecx
+
+    mov ecx, offset higher_half
+    jmp ecx
+
+.size _start, . - _start
+
+.section .text
+higher_half:
     mov esp, offset stack_top
     and esp, 0xFFFFFFF0
 
@@ -39,5 +68,3 @@ _start:
     cli
 1:  hlt
     jmp 1b
-
-.size _start, . - _start

@@ -1,4 +1,5 @@
 #include "pmm.h"
+#include "../memlayout/memlayout.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -43,7 +44,7 @@ void pmm_init(multiboot_info_t *mb_info) {
     }
 
     /* Walk memory map, freeing frames inside usable regions */
-    multiboot_mmap_entry_t *entry = (multiboot_mmap_entry_t *)mb_info->mmap_addr;
+    multiboot_mmap_entry_t *entry = (multiboot_mmap_entry_t *)PHYS_TO_VIRT(mb_info->mmap_addr);
     uint32_t offset = 0;
 
     while (offset < mb_info->mmap_length) {

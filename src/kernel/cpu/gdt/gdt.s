@@ -19,33 +19,33 @@ gdt_init:
     mov byte ptr  [gdt + 1*8 + 7], 0x00       /* base high */
 
     /* Kernel data descriptor (index 2, selector 0x10) */
-    mov word ptr  [gdt + 2*8],     0xFFFF     /* limit low */
-    mov word ptr  [gdt + 2*8 + 2], 0x0000     /* base low */
-    mov byte ptr  [gdt + 2*8 + 4], 0x00       /* base middle */
-    mov byte ptr  [gdt + 2*8 + 5], 0x92       /* access: present, ring0, data, writable */
-    mov byte ptr  [gdt + 2*8 + 6], 0xCF       /* granularity + limit high */
-    mov byte ptr  [gdt + 2*8 + 7], 0x00       /* base high */
+    mov word ptr  [gdt + 2*8],     0xFFFF     /* Limit low */
+    mov word ptr  [gdt + 2*8 + 2], 0x0000     /* Base low */
+    mov byte ptr  [gdt + 2*8 + 4], 0x00       /* Base middle */
+    mov byte ptr  [gdt + 2*8 + 5], 0x92       /* Access: present, ring0, data, writable */
+    mov byte ptr  [gdt + 2*8 + 6], 0xCF       /* Granularity + limit high */
+    mov byte ptr  [gdt + 2*8 + 7], 0x00       /* Base high */
 
     /* Load GDT */
     lgdt [gdtr]
 
-    mov byte ptr [0xB8000 + 160], 'G'
-    mov byte ptr [0xB8001 + 160], 0x0A
+    mov byte ptr [0xC00B8000 + 160], 'G'
+    mov byte ptr [0xC00B8001 + 160], 0x0A
 
-    mov byte ptr [0xB8002 + 160], 'D'
-    mov byte ptr [0xB8003 + 160], 0x0A
+    mov byte ptr [0xC00B8002 + 160], 'D'
+    mov byte ptr [0xC00B8003 + 160], 0x0A
 
-    mov byte ptr [0xB8004 + 160], 'T'
-    mov byte ptr [0xB8005 + 160], 0x0A
+    mov byte ptr [0xC00B8004 + 160], 'T'
+    mov byte ptr [0xC00B8005 + 160], 0x0A
 
-    mov byte ptr [0xB8006 + 160], ' '
-    mov byte ptr [0xB8007 + 160], 0x0A
+    mov byte ptr [0xC00B8006 + 160], ' '
+    mov byte ptr [0xC00B8007 + 160], 0x0A
 
-    mov byte ptr [0xB8008 + 160], 'O'
-    mov byte ptr [0xB8009 + 160], 0x0A
+    mov byte ptr [0xC00B8008 + 160], 'O'
+    mov byte ptr [0xC00B8009 + 160], 0x0A
 
-    mov byte ptr [0xB800A + 160], 'K'
-    mov byte ptr [0xB800B + 160], 0x0A
+    mov byte ptr [0xC00B800A + 160], 'K'
+    mov byte ptr [0xC00B800B + 160], 0x0A
 
     /* Far jump to reload CS with selector 0x08 */
     jmp 0x08:.flush_cs
@@ -67,5 +67,5 @@ gdt:
     .skip 24
 
 gdtr:
-    .word 23 /* limit = 24 - 1 */
-    .long gdt /* base */
+    .word 23 /* Limit = 24 - 1 */
+    .long gdt /* Base */

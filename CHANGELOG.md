@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.2.0] - 2026-10-23
+
+### Added
+
+* Boot trampoline enables paging with a temporary 4MB-pagae map before jumping to the high half
+* `PHYS_TO_VIRT` / `VIRT_TO_PHYS` helpers (`memlayout.h`) for converting physical and virtual addresses
+
+### Changed
+
+* Kernel is now a higher-half kernel, linked at 0xC0000000 and loaded at 2MB
+* `paging_init` now maps all detected RAM (up to 1GB) at 0xC0000000 and drops the identity map
+
 ## [0.1.10] - 2026-10-22
 
 ### Added
